@@ -5,17 +5,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="07eb56c46ee2494898f89c3c297e7cfe" Name="Diagram1">
-        <EntityTypeShape EntityType="CoolBooksModel.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoolBooksModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoolBooksModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoolBooksModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoolBooksModel.AspNetUsers" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoolBooksModel.Authors" Width="1.5" PointX="6" PointY="10.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoolBooksModel.Books" Width="1.5" PointX="8.25" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoolBooksModel.Genres" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoolBooksModel.Reviews" Width="1.5" PointX="10.5" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoolBooksModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CoolBooksModel.Users" Width="1.5" PointX="5.25" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoolBooksModel.C__MigrationHistory" Width="1.5" PointX="2.375" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoolBooksModel.AspNetRoles" Width="1.5" PointX="1.5" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoolBooksModel.AspNetUserClaims" Width="1.5" PointX="9" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoolBooksModel.AspNetUserLogins" Width="1.5" PointX="8.625" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoolBooksModel.AspNetUsers" Width="1.5" PointX="6.375" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoolBooksModel.Authors" Width="1.5" PointX="11.125" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoolBooksModel.Books" Width="1.5" PointX="13.125" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoolBooksModel.Genres" Width="1.5" PointX="10.875" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoolBooksModel.Reviews" Width="1.5" PointX="15.125" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoolBooksModel.sysdiagrams" Width="1.5" PointX="4.625" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoolBooksModel.Users" Width="1.5" PointX="4.25" PointY="2.875" IsExpanded="true" />
         <AssociationConnector Association="CoolBooksModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="CoolBooksModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="CoolBooksModel.FK_Books_AspNetUsers" ManuallyRouted="false" />
