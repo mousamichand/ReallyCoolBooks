@@ -13,6 +13,12 @@ namespace CoolBooks.Controllers
             return View();
         }
 
+        public ActionResult Login()
+        {
+            ViewBag.Message = "Login.";
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
