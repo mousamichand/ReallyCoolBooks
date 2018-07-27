@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="07eb56c46ee2494898f89c3c297e7cfe" Name="Diagram1">
+        <EntityTypeShape EntityType="CoolBooksModel.C__MigrationHistory" Width="1.5" PointX="2.375" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoolBooksModel.AspNetRoles" Width="1.5" PointX="1.5" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoolBooksModel.AspNetUserClaims" Width="1.5" PointX="9" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoolBooksModel.AspNetUserLogins" Width="1.5" PointX="8.625" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoolBooksModel.AspNetUsers" Width="1.5" PointX="6.375" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoolBooksModel.Authors" Width="1.5" PointX="11.125" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoolBooksModel.Books" Width="1.5" PointX="13.125" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoolBooksModel.Genres" Width="1.5" PointX="10.875" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoolBooksModel.Reviews" Width="1.5" PointX="15.125" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoolBooksModel.sysdiagrams" Width="1.5" PointX="4.625" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoolBooksModel.Users" Width="1.5" PointX="4.25" PointY="2.875" IsExpanded="true" />
+        <AssociationConnector Association="CoolBooksModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="CoolBooksModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="CoolBooksModel.FK_Books_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="CoolBooksModel.FK_Reviews_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="CoolBooksModel.FK_Users_AspNetUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="CoolBooksModel.FK_Books_Authors" ManuallyRouted="false" />
+        <AssociationConnector Association="CoolBooksModel.FK_Books_Genres" ManuallyRouted="false" />
+        <AssociationConnector Association="CoolBooksModel.FK_Reviews_Books" ManuallyRouted="false" />
+        <AssociationConnector Association="CoolBooksModel.AspNetUserRoles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

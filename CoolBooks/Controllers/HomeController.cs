@@ -21,7 +21,7 @@ namespace CoolBooks.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "CoolBooks description page.";
 
             return View();
         }
@@ -29,6 +29,13 @@ namespace CoolBooks.Controllers
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult Donate()
+        {
+            ViewBag.Message = "Donate to our project.";
 
             return View();
         }
