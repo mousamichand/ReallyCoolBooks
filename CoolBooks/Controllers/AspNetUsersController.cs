@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using CoolBooks.Models;
 using System.Web.Security;
+using CaptchaMvc.HtmlHelpers;
 
 namespace CoolBooks.Controllers
 {
@@ -40,7 +41,7 @@ namespace CoolBooks.Controllers
         // GET: AspNetUsers/Create
         public ActionResult SignUp()
         {
-            ViewBag.Id = new SelectList(db.Users, "UserId", "FirstName");
+            //ViewBag.Id = new SelectList(db.Users, "UserId", "FirstName");
             return View();
         }
 
@@ -76,6 +77,8 @@ namespace CoolBooks.Controllers
 
             if (ModelState.IsValid)
             {
+ 
+
                 aspNetUsers.Id = Guid.NewGuid().ToString();
 
  //               aspNetUsers.SecurityStamp = SecurePasswordHasher.Hash(aspNetUsers.PasswordHash);
@@ -94,14 +97,26 @@ namespace CoolBooks.Controllers
                 aspNetUsers.LockoutEndDateUtc = DateTime.Now;
                 aspNetUsers.LockoutEnabled = false;
                 aspNetUsers.AccessFailedCount = 0;
-                //     aspNetUsers.UserName = "jshbhbhj";
 
-                db.AspNetUsers.Add(aspNetUsers);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (this.IsCaptchaValid("Validate your captcha"))
+                {
+                    ViewBag.ErrMessage = "Validation Message";
+                    db.AspNetUsers.Add(aspNetUsers);
+                    db.SaveChanges();
+                    return RedirectToAction("../Users/Profile");
+                } else
+                {
+                    return View();
+                }
+
             }
 
+
             ViewBag.Id = new SelectList(db.Users, "UserId", "FirstName", aspNetUsers.Id);
+
+
+
+
             return View(aspNetUsers);
         }
 

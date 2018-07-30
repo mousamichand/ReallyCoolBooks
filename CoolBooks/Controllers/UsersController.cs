@@ -37,14 +37,6 @@ namespace CoolBooks.Controllers
             return View(users);
         }
 
-
-        // GET: Users/Profile
-        public ActionResult SignUp()
-        {
-            return View();
-        }
-
-
         // GET: Users/Profile
         public ActionResult Profile()
         {
