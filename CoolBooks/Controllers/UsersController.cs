@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using CaptchaMvc.HtmlHelpers;
 using CoolBooks.Models;
 
 namespace CoolBooks.Controllers
@@ -18,7 +19,7 @@ namespace CoolBooks.Controllers
         public ActionResult Index()
         {
             var users = db.Users.Include(u => u.AspNetUsers);
-            return View(users.ToList());
+            return View();
         }
 
         // GET: Users/Details/5
@@ -36,25 +37,40 @@ namespace CoolBooks.Controllers
             return View(users);
         }
 
-        // GET: Users/Create
-        public ActionResult Create()
+
+        // GET: Users/Profile
+        public ActionResult SignUp()
+        {
+            return View();
+        }
+
+
+        // GET: Users/Profile
+        public ActionResult Profile()
         {
             ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email");
             return View();
         }
 
-        // POST: Users/Create
+      
+
+        // POST: Users/Profile
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UserId,FirstName,LastName,Gender,Birthdate,Picture,Phone,Address,ZipCode,City,Country,Email,Info,Created,IsDeleted")] Users users)
+        public ActionResult Profile([Bind(Include = "UserId,FirstName,LastName,Gender,Birthdate,Picture,Phone,Address,ZipCode,City,Country,Email,Info,Created,IsDeleted")] Users users)
         {
             if (ModelState.IsValid)
             {
-                db.Users.Add(users);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (this.IsCaptchaValid("Validate your captcha"))
+                {
+                    ViewBag.ErrMessage = "Validation Messgae";
+                    db.Users.Add(users);
+                    db.SaveChanges();
+                        return RedirectToAction("Index");
+                }
+                return View();
             }
 
             ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", users.UserId);
