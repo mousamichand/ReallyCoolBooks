@@ -63,14 +63,11 @@ namespace CoolBooks.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (this.IsCaptchaValid("Validate your captcha"))
-                {
-                    ViewBag.ErrMessage = "Validation Messgae";
+                
                     db.Users.Add(users);
                     db.SaveChanges();
                         return RedirectToAction("Index");
-                }
-                return View();
+                
             }
 
             ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", users.UserId);
