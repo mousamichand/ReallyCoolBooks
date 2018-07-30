@@ -38,7 +38,7 @@ namespace CoolBooks.Controllers
         }
 
         // GET: AspNetUsers/Create
-        public ActionResult Create()
+        public ActionResult SignUp()
         {
             ViewBag.Id = new SelectList(db.Users, "UserId", "FirstName");
             return View();
@@ -70,7 +70,7 @@ namespace CoolBooks.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Email,PasswordHash,UserName")] AspNetUsers aspNetUsers)
+        public ActionResult SignUp([Bind(Include = "Email,PasswordHash,UserName")] AspNetUsers aspNetUsers)
         {
             //   public ActionResult Create([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] AspNetUsers aspNetUsers)
 
@@ -78,13 +78,13 @@ namespace CoolBooks.Controllers
             {
                 aspNetUsers.Id = Guid.NewGuid().ToString();
 
-                aspNetUsers.SecurityStamp = SecurePasswordHasher.Hash(aspNetUsers.PasswordHash);
+ //               aspNetUsers.SecurityStamp = SecurePasswordHasher.Hash(aspNetUsers.PasswordHash);
                 //                   public string Id { get; set; }
                 //        public string Email { get; set; }
                 //        public string PasswordHash { get; set; }
                 aspNetUsers.EmailConfirmed = true;
 
-//                aspNetUsers.SecurityStamp = "HOHO";
+                //                aspNetUsers.SecurityStamp = "HOHO";
 
 
                 aspNetUsers.PhoneNumber = "";
@@ -94,9 +94,9 @@ namespace CoolBooks.Controllers
                 aspNetUsers.LockoutEndDateUtc = DateTime.Now;
                 aspNetUsers.LockoutEnabled = false;
                 aspNetUsers.AccessFailedCount = 0;
-           //     aspNetUsers.UserName = "jshbhbhj";
+                //     aspNetUsers.UserName = "jshbhbhj";
 
-        db.AspNetUsers.Add(aspNetUsers);
+                db.AspNetUsers.Add(aspNetUsers);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -121,7 +121,7 @@ namespace CoolBooks.Controllers
             return View(aspNetUsers);
         }
 
- 
+
         // POST: AspNetUsers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -139,6 +139,7 @@ namespace CoolBooks.Controllers
             return View(aspNetUsers);
         }
 
+        /*
         // GET: AspNetUsers/Delete/5
         public ActionResult Delete(string id)
         {
@@ -193,6 +194,7 @@ namespace CoolBooks.Controllers
         /// <param name="password">the password</param>
         /// <param name="iterations">number of iterations</param>
         /// <returns>the hash</returns>
+        /*
         public static string Hash(string password, int iterations)
         {
             //create salt
@@ -273,7 +275,10 @@ namespace CoolBooks.Controllers
                 }
             }
             return true;
+
+
         }
+        */
     }
 
 
