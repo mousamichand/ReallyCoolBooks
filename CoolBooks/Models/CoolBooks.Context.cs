@@ -141,5 +141,7 @@ namespace CoolBooks.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
+
+        public System.Data.Entity.DbSet<CoolBooks.Models.Users> Registrations { get; set; }
     }
 }
