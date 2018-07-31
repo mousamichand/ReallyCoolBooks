@@ -51,12 +51,21 @@ namespace CoolBooks.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Profile([Bind(Include = "UserId,FirstName,LastName,Gender,Birthdate,Picture,Phone,Address,ZipCode,City,Country,Email,Info,Created,IsDeleted")] Users users)
+        public ActionResult Profile([Bind(Include = "UserId,FirstName,LastName,Gender,Birthdate,Picture,Phone,Address,ZipCode,City,Country,Email,Info")] Users users)
         {
+
+
             if (ModelState.IsValid)
             {
                 
-                    db.Users.Add(users);
+                users.Created = DateTime.Now;
+                users.IsDeleted = false;
+                if (users.FirstName == null || users.LastName == null || users.Email == null)
+                {
+                    return View();
+                }
+
+                db.Users.Add(users);
                     db.SaveChanges();
                         return RedirectToAction("Index");
                 
@@ -89,9 +98,20 @@ namespace CoolBooks.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "UserId,FirstName,LastName,Gender,Birthdate,Picture,Phone,Address,ZipCode,City,Country,Email,Info,Created,IsDeleted")] Users users)
         {
+
+
+
+            
+            
+
+
             if (ModelState.IsValid)
             {
                 db.Entry(users).State = EntityState.Modified;
+                if (users.FirstName == null || users.LastName == null || users.Email == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
