@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using CoolBooks.Models;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace CoolBooks.Controllers
 {
@@ -139,17 +140,6 @@ namespace CoolBooks.Controllers
             base.Dispose(disposing);
         }
 
-        public Books SearchBook(string isbn)
-        {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:49905");
-            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = client.GetAsync("https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn).Result;
-
-            string jsonData = response.Content.ReadAsStringAsync().Result;
-            Books book = JsonConvert.DeserializeObject<Books>(jsonData);
-
-            return book;
-        }
+       
     }
 }
