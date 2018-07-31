@@ -10,12 +10,14 @@ namespace CoolBooks.Controllers
     public class BooksController : Controller
     {
         // GET: Books
+        private CoolBooksEntities db = new CoolBooksEntities();
 
         public ActionResult Index()
             
         {
-            //ViewBag.GenderId = new SelectList(Genres, "GenderId", "Description");
-            return View();
+            //ViewBag.Generid = new SelectList(db.Genres, "Id", "Name");
+            List <Genres> genres= db.Genres.ToList();
+            return View(genres);
         }
 
         // GET: Books/Details/5
