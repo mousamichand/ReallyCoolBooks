@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CoolBooks.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,6 +21,5 @@ namespace CoolBooks
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
-       
     }
 }

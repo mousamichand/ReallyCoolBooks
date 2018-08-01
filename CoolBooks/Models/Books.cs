@@ -9,6 +9,7 @@
 
 namespace CoolBooks.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -24,6 +25,7 @@ namespace CoolBooks.Models
         public string UserId { get; set; }
         public int AuthorId { get; set; }
         public int GenreId { get; set; }
+        [JsonProperty("title")]
         public string Title { get; set; }
         public string AlternativeTitle { get; set; }
         public Nullable<short> Part { get; set; }
