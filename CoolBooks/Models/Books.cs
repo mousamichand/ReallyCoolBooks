@@ -36,7 +36,7 @@ namespace CoolBooks.Models
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Authors Authors { get; set; }
-        public virtual Genres Genres { get; set; }
+        public virtual ICollection<Genres> Genres { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reviews> Reviews { get; set; }
     }

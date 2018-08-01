@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CoolBooks.Models;
@@ -9,87 +12,133 @@ namespace CoolBooks.Controllers
 {
     public class BooksController : Controller
     {
-        // GET: Books
         private CoolBooksEntities db = new CoolBooksEntities();
 
+        // GET: Books
         public ActionResult Index()
-            
         {
-            //ViewBag.Generid = new SelectList(db.Genres, "Id", "Name");
-            List <Genres> genres= db.Genres.ToList();
-            return View(genres);
+            var books = db.Books.Include(b => b.AspNetUsers).Include(b => b.Authors).Include(b => b.Genres);
+            return View(books.ToList());
         }
 
         // GET: Books/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Books books = db.Books.Find(id);
+            if (books == null)
+            {
+                return HttpNotFound();
+            }
+            return View(books);
         }
 
         // GET: Books/Create
         public ActionResult Create()
         {
+            ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email");
+            ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName");
+            ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name");
             return View();
         }
 
         // POST: Books/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,UserId,AuthorId,GenreId,Title,AlternativeTitle,Part,Description,ISBN,PublishDate,ImagePath,Created,IsDeleted")] Books books)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                books.GenreId = 1;
 
+                books.Created = DateTime.Now;
+                books.IsDeleted = false;
+                db.Books.Add(books);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+
+            ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", books.UserId);
+            ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName", books.AuthorId);
+            ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", books.GenreId);
+            return View(books);
         }
 
         // GET: Books/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Books books = db.Books.Find(id);
+            if (books == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", books.UserId);
+            ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName", books.AuthorId);
+            ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", books.GenreId);
+            return View(books);
         }
 
         // POST: Books/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Id,UserId,AuthorId,GenreId,Title,AlternativeTitle,Part,Description,ISBN,PublishDate,ImagePath,Created,IsDeleted")] Books books)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
-
+                db.Entry(books).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", books.UserId);
+            ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName", books.AuthorId);
+            ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", books.GenreId);
+            return View(books);
         }
 
         // GET: Books/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Books books = db.Books.Find(id);
+            if (books == null)
+            {
+                return HttpNotFound();
+            }
+            return View(books);
         }
 
         // POST: Books/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            Books books = db.Books.Find(id);
+            db.Books.Remove(books);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
-                return RedirectToAction("Index");
-            }
-            catch
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
             {
-                return View();
+                db.Dispose();
             }
+            base.Dispose(disposing);
         }
     }
 }
