@@ -12,7 +12,8 @@ namespace CoolBooks.Models
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Books
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -32,6 +33,7 @@ namespace CoolBooks.Models
         public string Description { get; set; }
         public string ISBN { get; set; }
         public Nullable<System.DateTime> PublishDate { get; set; }
+        [DataType(DataType.Upload)]
         public string ImagePath { get; set; }
         public System.DateTime Created { get; set; }
         public bool IsDeleted { get; set; }

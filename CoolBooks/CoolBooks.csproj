@@ -185,7 +185,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AspNetUsersController.cs" />
-    <Compile Include="Controllers\Books1Controller.cs" />
     <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -315,10 +314,6 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\Profile.cshtml" />
     <Content Include="Views\AspNetUsers\SignUp.cshtml" />
-    <Content Include="Views\Books1\Delete.cshtml" />
-    <Content Include="Views\Books1\Details.cshtml" />
-    <Content Include="Views\Books1\Edit.cshtml" />
-    <Content Include="Views\Books1\Index.cshtml" />
     <Content Include="Views\Users\Login.cshtml" />
     <Content Include="Views\Books\Create.cshtml" />
     <Content Include="Views\Books\Delete.cshtml" />
