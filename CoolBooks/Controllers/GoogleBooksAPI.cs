@@ -18,8 +18,8 @@ namespace CoolBooks.Controllers
     public class GoogleBooksAPI
     {
 
-        public static void SearchBook(string isbn)
-        {
+        public static Item SearchBook(string isbn)
+        { 
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:49905");
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
@@ -27,6 +27,7 @@ namespace CoolBooks.Controllers
 
             string jsonData = response.Content.ReadAsStringAsync().Result;
             BookInfos books = JsonConvert.DeserializeObject<BookInfos>(jsonData);
+            return books.Items[0];
         }
     }
 
@@ -44,7 +45,6 @@ namespace CoolBooks.Controllers
 
     public class Item
     {
-        // FUCK YOU ADAM
         [JsonProperty("kind")]
         public string Kind { get; set; }
 
