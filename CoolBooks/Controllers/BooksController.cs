@@ -73,6 +73,11 @@ namespace CoolBooks.Controllers
             return View(books);
         }
 
+      
+        
+        
+
+
         // GET: Books/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -110,6 +115,8 @@ namespace CoolBooks.Controllers
             return View(books);
         }
 
+
+       
         // GET: Books/Delete/5
         public ActionResult Delete(int? id)
         {
