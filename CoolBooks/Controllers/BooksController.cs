@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -64,6 +65,30 @@ namespace CoolBooks.Controllers
 
                 books.Created = DateTime.Now;
                 books.IsDeleted = false;
+                //try
+                //{
+
+
+                //    if (books.ImagePath != null)
+                //    {
+                //        string path = Path.Combine(Server.MapPath("~/BookImaGes"), Path.GetFileName(books.ImagePath));
+                //        file.SaveAs(path);
+
+                //    }
+                //    ViewBag.FileStatus = "File uploaded successfully.";
+                //}
+                //catch (Exception)
+                //{
+
+                //    ViewBag.FileStatus = "Error while file uploading.";
+                //}
+
+
+
+
+
+
+
                 db.Books.Add(books);
                 db.SaveChanges();
                 return RedirectToAction("Index");
