@@ -59,19 +59,48 @@ namespace CoolBooks.Controllers
             if (ModelState.IsValid)
             {
                 books.GenreId = 1;
+                string s = Request.Form["n1"];
 
+                if(s.Equals("Create"))
+                {
                 books.Created = DateTime.Now;
                 books.IsDeleted = false;
                 db.Books.Add(books);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+                }
+                else
+                {
+                    Item  book = GoogleBooksAPI.SearchBook(books.ISBN);
+
+                   ViewBag.booktitle = book.VolumeInfo.Title;
+
+                    ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", books.UserId);
+                    ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName", books.AuthorId);
+                    ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", books.GenreId);
+
+
+                    return View(books);
+                }
             }
 
-            ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", books.UserId);
-            ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName", books.AuthorId);
-            ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", books.GenreId);
+            
             return View(books);
         }
+
+        [HttpPost]
+        public void autofill([Bind(Include = "ISBN")] Books books)
+        {
+           
+                GoogleBooksAPI.SearchBook(books.ISBN);
+                books.GenreId = 1;
+                books.Created = DateTime.Now;
+                books.IsDeleted = false;
+                
+            
+
+        }
+
 
         // GET: Books/Edit/5
         public ActionResult Edit(int? id)
