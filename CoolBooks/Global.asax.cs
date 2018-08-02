@@ -17,7 +17,7 @@ namespace CoolBooks
     {
         protected void Application_Start()
         {
-            BooksController.SearchBook("9780547928197");
+           
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

@@ -1,5 +1,10 @@
 ﻿@model CoolBooks.Models.Books
 
+    @{ 
+        var imagePath = @Model.ImagePath;
+    }
+
+
 <!DOCTYPE html>
 
 <html>
@@ -41,7 +46,10 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.ImagePath)
+                
+                <img src=@imagePath alt="mousami" />
+                   
+
             </dd>
 
             <dt>

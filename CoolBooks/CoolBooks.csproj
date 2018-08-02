@@ -248,6 +248,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BookImages\1.jpeg" />
+    <Content Include="BookImages\2.jpg" />
+    <Content Include="BookImages\3.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
