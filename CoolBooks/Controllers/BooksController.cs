@@ -83,16 +83,32 @@ namespace CoolBooks.Controllers
                     ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", books.GenreId);
                     
 
-                        Books book = new Books();
-                        book.GenreId = 1 ;
-                        book.AuthorId = 1;
-                    book.Title = "crazy .net mvc";
-                return View(book);
+                //        Books book = new Books();
+                //        book.GenreId = 1 ;
+                //        book.AuthorId = 1;
+                //    book.Title = "crazy .net mvc";
+                //return View(book);
+
+
+                   Books objbook = new Books
+                    {
+                        Id = 1,
+                        AuthorId=1,
+                        UserId="mchand",
+                        ISBN="1238",
+                        Title = "Priti kumari",
+                       Created = DateTime.Now
+                       
+                    };
+
+                    return View("create",objbook);
                 }
+                
             }
 
-            
-            return View(books);
+            else
+                return View(books);
+
         }
 
         //[HttpPost]
