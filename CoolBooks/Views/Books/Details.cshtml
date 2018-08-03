@@ -1,8 +1,10 @@
-﻿@model CoolBooks.Models.Books
+﻿ @model CoolBooks.Models.Books 
 
-    @{ 
-        var imagePath = @Model.ImagePath;
-    }
+
+
+@{
+    var imagePath = @Model.ImagePath;
+}
 
 
 <!DOCTYPE html>
@@ -16,6 +18,7 @@
     <div>
         <h4>Books</h4>
         <hr />
+
         <dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.Title)
@@ -25,11 +28,11 @@
                 @Html.DisplayFor(model => model.Title)
             </dd>
 
-           
 
-         
 
-          
+
+
+
             <dt>
                 @Html.DisplayNameFor(model => model.Description)
             </dt>
@@ -38,17 +41,17 @@
                 @Html.DisplayFor(model => model.Description)
             </dd>
 
-            
 
-          
+
+
             <dt>
                 @Html.DisplayNameFor(model => model.ImagePath)
             </dt>
 
             <dd>
-                
+
                 <img src=@imagePath alt="mousami" />
-                   
+
 
             </dd>
 
@@ -60,31 +63,32 @@
                 @Html.DisplayFor(model => model.Created)
             </dd>
 
-           
 
-          
+
+
 
             <dt>
-               Author
+                Author
             </dt>
 
             <dd>
                 @Html.DisplayFor(model => model.Authors.FirstName)
             </dd>
 
-               <dt>
-               Genres
+            <dt>
+                Genres
             </dt>
 
             <dd>
                 @Html.DisplayFor(model => model.Genres.Name)
-            </dd> 
+            </dd>
 
         </dl>
-            </div>
-            <p>
-                @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-                @Html.ActionLink("Back to List", "Index")
-            </p>
-        </body>
-        </html>
+    </div>
+    <p>
+
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

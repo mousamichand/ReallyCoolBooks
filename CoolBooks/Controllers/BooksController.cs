@@ -11,6 +11,7 @@ using System.Web.Script.Serialization;
 using CoolBooks.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using CoolBooks.ViewModels;
 
 namespace CoolBooks.Controllers
 {
@@ -35,12 +36,21 @@ namespace CoolBooks.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Books books = db.Books.Find(id);
-            if (books == null)
+         //   Books books = db.Books.Find(id);
+
+            var abc = from b in db.Books
+                      join r in db.Reviews on b.Id equals r.BookId
+                      where b.Id == id
+                      select new { b.Id, b.Title, b.Description, b.ImagePath,b.Created,b.Authors,b.Genres, r.Text, r.UserId };
+
+
+            
+            if (abc == null)
             {
                 return HttpNotFound();
             }
-            return View(books);
+            // return View(books);
+            return View(abc);
         }
 
         // GET: Books/Create
@@ -190,6 +200,24 @@ namespace CoolBooks.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+
+        //write review and display review
+        public ActionResult ViewModelDemo(int id)
+        {
+
+            var booksReview = (from b in db.Books
+                      join r in db.Reviews on b.Id equals r.BookId
+                      where b.Id == id
+                      select new { b.Id, b.Title, b.Description,b.ImagePath,r.Text,r.UserId }).ToList();
+
+               return View(booksReview);
+        }
+
+
+
+
+
 
         protected override void Dispose(bool disposing)
         {
