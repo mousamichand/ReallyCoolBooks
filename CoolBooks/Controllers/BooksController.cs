@@ -18,6 +18,9 @@ namespace CoolBooks.Controllers
     {
         private CoolBooksEntities db = new CoolBooksEntities();
 
+        public int AuthorId { get; private set; }
+        public string Title { get; private set; }
+
         // GET: Books
         public ActionResult Index()
         {
@@ -71,16 +74,20 @@ namespace CoolBooks.Controllers
                 }
                 else
                 {
-                    Item  book = GoogleBooksAPI.SearchBook(books.ISBN);
+                   // Item  book = GoogleBooksAPI.SearchBook(books.ISBN);
 
-                   ViewBag.booktitle = book.VolumeInfo.Title;
+                   //ViewBag.booktitle = book.VolumeInfo.Title;
 
                     ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", books.UserId);
                     ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName", books.AuthorId);
                     ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", books.GenreId);
+                    
 
-
-                    return View(books);
+                        Books book = new Books();
+                        book.GenreId = 1 ;
+                        book.AuthorId = 1;
+                    book.Title = "crazy .net mvc";
+                return View(book);
                 }
             }
 
@@ -88,18 +95,19 @@ namespace CoolBooks.Controllers
             return View(books);
         }
 
-        [HttpPost]
-        public void autofill([Bind(Include = "ISBN")] Books books)
-        {
+        //[HttpPost]
+        //public void autofill([Bind(Include = "ISBN")] Books books)
+        //{
            
-                GoogleBooksAPI.SearchBook(books.ISBN);
-                books.GenreId = 1;
-                books.Created = DateTime.Now;
-                books.IsDeleted = false;
-                
-            
+        //        GoogleBooksAPI.SearchBook(books.ISBN);
+        //        books.GenreId = 1;
+        //        books.Created = DateTime.Now;
+        //        books.IsDeleted = false;
 
-        }
+           
+          
+
+        //}
 
 
         // GET: Books/Edit/5

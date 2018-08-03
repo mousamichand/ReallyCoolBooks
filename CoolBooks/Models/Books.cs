@@ -44,5 +44,6 @@ namespace CoolBooks.Models
         public virtual Genres Genres { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reviews> Reviews { get; set; }
+       // public Books Books { get; internal set; }
     }
 }
