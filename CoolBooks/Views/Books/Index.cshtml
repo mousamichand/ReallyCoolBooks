@@ -9,9 +9,9 @@
 </head>
 <body>
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Create New", "Create", new { id = string.Empty }, new { @class = "btn btn-primary " })
     </p>
-    <table class="table">
+    <table class="table table-striped" >
         <tr>
             <td>Title</td>
             <td>Description</td>
@@ -23,8 +23,8 @@
 
             @foreach (var item in Model)
     {
-        <tr>
-            <td>
+        <tr class="table-striped">
+            <td class="table-striped">
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
 
@@ -49,10 +49,10 @@
             </td>
 
             <td>
-                  @Html.ActionLink("Edit", "Edit", new { id = item.Id }) | 
-                @Html.ActionLink("View", "Details", new { id = item.Id }) |
-                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-        </tr>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary " }) 
+                @Html.ActionLink("View", "Details", new { id = item.Id }, new { @class = "btn btn-primary " }) |
+                @*   @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-primary" }) *@
+</tr>
         }
 
                     </table>

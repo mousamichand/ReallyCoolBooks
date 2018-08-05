@@ -1,12 +1,19 @@
-﻿ @model CoolBooks.Models.Books 
-
-
-
+﻿@using CoolBooks.Models
 @{
-    var imagePath = @Model.ImagePath;
+
+
+    Books bk = ViewData["Books"] as Books;
+    @* Reviews reviews = ViewData["Reviews"] as Reviews; *@
+    IEnumerable<Reviews> rev = ViewData["Reviews"] as IEnumerable<Reviews>;
 }
 
 
+@*
+    @{
+        var imagePath = @Model.ImagePath;
+    }
+
+*@
 <!DOCTYPE html>
 
 <html>
@@ -19,76 +26,86 @@
         <h4>Books</h4>
         <hr />
 
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Title)
-            </dt>
+       <table class="table table-striped" border="1" >
+           <tr rowspan="2">
+               <td>
+                   <img src=@bk.ImagePath alt="Image not Available"  width="100"/>
+               </td>
+               <td>
+                                
+                   <table class="table table-striped">
+                       <tr>
+                           <td> Title</td>
+                           <td>@bk.Title</td>
 
-            <dd>
-                @Html.DisplayFor(model => model.Title)
-            </dd>
+                       </tr>
+                       <tr>
+                           <td> Description</td>
+                           <td>@bk.Description</td>
 
+                       </tr>
+                       <tr>
+                           <td>  Author</td>
+                           <td> @bk.Authors.FirstName</td>
 
+                       </tr>
+                       <tr>
+                           <td>  Genres</td>
+                           <td> @bk.Genres.Name</td>
 
+                       </tr>
+                  </table>
+               </td>
+              
+           </tr>
 
-
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Description)
-            </dd>
-
-
-
-
-            <dt>
-                @Html.DisplayNameFor(model => model.ImagePath)
-            </dt>
-
-            <dd>
-
-                <img src=@imagePath alt="mousami" />
-
-
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Created)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Created)
-            </dd>
+<tr>
+<td width="400" height="200">
 
 
+</td>
+    <td align="right" >
+        <table align="right"  class="table table-striped">
+            <tr>
+                <th>Title</th>
+                <th>Comments</th>
+                <th>Rating</th>
+            </tr>
+            @foreach (var reviews in rev)
+        {
+            <tr>
+                <td>@reviews.Title</td>
+                <td>@reviews.Text</td>
+                <td>@reviews.Rating</td>
+            </tr>
+    }
+            <tr colspan="3">
+
+                <td>
+                   <textarea rows="10">
+
+</textarea>
+
+                </td>
+
+            </tr>
+        </table>
 
 
 
-            <dt>
-                Author
-            </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Authors.FirstName)
-            </dd>
+    </td>
 
-            <dt>
-                Genres
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Genres.Name)
-            </dd>
-
-        </dl>
-    </div>
+</tr>
+                </table>
+</div>
     <p>
 
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
+
+
+
+        @*    @Html.ActionLink("Edit", "Edit", new { id = ViewBag.Books.Id }) | *@
+        @Html.ActionLink("Back to List", "Index", new { id = string.Empty }, new { @class = "btn btn-primary " })
     </p>
 </body>
 </html>
