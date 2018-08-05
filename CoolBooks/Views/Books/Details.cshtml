@@ -26,86 +26,73 @@
         <h4>Books</h4>
         <hr />
 
-       <table class="table table-striped" border="1" >
-           <tr rowspan="2">
-               <td>
-                   <img src=@bk.ImagePath alt="Image not Available"  width="100"/>
-               </td>
-               <td>
-                                
-                   <table class="table table-striped">
-                       <tr>
-                           <td> Title</td>
-                           <td>@bk.Title</td>
-
-                       </tr>
-                       <tr>
-                           <td> Description</td>
-                           <td>@bk.Description</td>
-
-                       </tr>
-                       <tr>
-                           <td>  Author</td>
-                           <td> @bk.Authors.FirstName</td>
-
-                       </tr>
-                       <tr>
-                           <td>  Genres</td>
-                           <td> @bk.Genres.Name</td>
-
-                       </tr>
-                  </table>
-               </td>
-              
-           </tr>
-
-<tr>
-<td width="400" height="200">
-
-
-</td>
-    <td align="right" >
-        <table align="right"  class="table table-striped">
-            <tr>
-                <th>Title</th>
-                <th>Comments</th>
-                <th>Rating</th>
-            </tr>
-            @foreach (var reviews in rev)
-        {
-            <tr>
-                <td>@reviews.Title</td>
-                <td>@reviews.Text</td>
-                <td>@reviews.Rating</td>
-            </tr>
-    }
-            <tr colspan="3">
-
+        <table class="table table-striped" border="0">
+            <tr rowspan="2">
                 <td>
-                   <textarea rows="10">
+                    <img src=@bk.ImagePath alt="Image not Available" width="200" height="200" />
+                </td>
+                <td>
 
-</textarea>
+                    <table class="table table-striped" border="0">
+                        <tr>
+                            <td> Title</td>
+                            <td>@bk.Title</td>
 
+                        </tr>
+                        <tr>
+                            <td> Description</td>
+                            <td>@bk.Description</td>
+
+                        </tr>
+                        <tr>
+                            <td>  Author</td>
+                            <td> @bk.Authors.FirstName</td>
+
+                        </tr>
+                        <tr>
+                            <td>  Genres</td>
+                            <td> @bk.Genres.Name</td>
+
+                        </tr>
+                    </table>
                 </td>
 
             </tr>
-        </table>
 
+            <tr>
+                <td width="400" height="200"></td>
+                <td align="right">
+                    <table align="right" class="table table-striped" border="0">
 
+                        @foreach (var reviews in rev)
+    {
+                    <tr>  <td colspan="2"><B>@reviews.UserId</B></td> </tr>
+                    <tr>  <td colspan="2">@reviews.Title</td> </tr>
+                    <tr><td>@reviews.Text </td><td> @Html.ActionLink("Delete", "Delete", new { id = string.Empty }, new { @class = "btn btn-primary " })</td></tr>
+                    @*
+    <td>@reviews.Rating</td> *@
 
+}
+                        <tr><td colspan="2"><B>USERNAME</B></td></tr>
+                        <tr>
+                            <td>
+                                @Html.TextArea("Review", new { maxlength = 500, style = "width:1000px; height:100px;" }) </td>
+                            border
+                            <td>    @Html.ActionLink("Save", "Save", new { id = string.Empty }, new { @class = "btn btn-primary " })
 
-    </td>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
 
-</tr>
-                </table>
-</div>
-    <p>
+            </table>
+            </div >
 
+            <p>
 
-
-
-        @*    @Html.ActionLink("Edit", "Edit", new { id = ViewBag.Books.Id }) | *@
-        @Html.ActionLink("Back to List", "Index", new { id = string.Empty }, new { @class = "btn btn-primary " })
-    </p>
+                @*    @Html.ActionLink("Edit", "Edit", new { id = ViewBag.Books.Id }) | *@
+                @Html.ActionLink("Back to List", "Index", new { id = string.Empty }, new { @class = "btn btn-primary " })
+            </p>
 </body>
 </html>
