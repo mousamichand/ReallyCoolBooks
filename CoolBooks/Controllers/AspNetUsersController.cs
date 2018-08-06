@@ -81,7 +81,9 @@ namespace CoolBooks.Controllers
 
             if (ModelState.IsValid)
             {
- 
+                string password = Request.Form["Password"];
+
+                aspNetUsers.PasswordHash = password + "Hashed";
 
                 aspNetUsers.Id = Guid.NewGuid().ToString();
 
