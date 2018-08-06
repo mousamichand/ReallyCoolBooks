@@ -190,6 +190,7 @@
     <Compile Include="Controllers\GenresController.cs" />
     <Compile Include="Controllers\GoogleBooksAPI.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReviewsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -255,6 +256,10 @@
     <Content Include="BookImages\1.jpeg" />
     <Content Include="BookImages\2.jpg" />
     <Content Include="BookImages\3.jpg" />
+    <Content Include="Content\style.css" />
+    <Content Include="Images\star-empty-lg.png" />
+    <Content Include="Images\star-fill-lg.png" />
+    <Content Include="Images\stars.png" />
     <Content Include="Models\BookImages\1.jpeg" />
     <Content Include="Models\BookImages\2.jpg" />
     <Content Include="Models\BookImages\3.jpg" />
@@ -299,6 +304,8 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Views\coolbooksbgts.png" />
+    <Content Include="Views\Shared\stars.png" />
+    <Content Include="Views\stars.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -340,6 +347,7 @@
     <Content Include="Views\Authors\Details.cshtml" />
     <Content Include="Views\Authors\Edit.cshtml" />
     <Content Include="Views\Authors\Index.cshtml" />
+    <Content Include="Views\Reviews\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
