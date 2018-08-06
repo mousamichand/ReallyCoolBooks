@@ -11,19 +11,20 @@
     <p>
         @Html.ActionLink("Create New", "Create", new { id = string.Empty }, new { @class = "btn btn-primary " })
     </p>
-    <table class="table" >
+    <table class="table table-striped" border="0">
         <tr>
             <td>Title</td>
             <td>Description</td>
             <td>ISBN</td>
             <td>Genre</td>
-            <td>Author</td>
+            <td colspan="3">Author</td>
+          
         </tr>
 
 
             @foreach (var item in Model)
     {
-        <tr class="table-striped">
+        <tr class="table table-striped">
             <td class="table-striped">
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
@@ -49,10 +50,14 @@
             </td>
 
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary " }) 
-                @Html.ActionLink("View", "Details", new { id = item.Id }, new { @class = "btn btn-primary " }) |
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary " })
+            </td>
+            <td>
+                @Html.ActionLink("View", "Details", new { id = item.Id }, new { @class = "btn btn-primary " })
+            </td>
+
                 @*   @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-primary" }) *@
-</tr>
+        </tr>
         }
 
                     </table>
