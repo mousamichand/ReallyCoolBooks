@@ -19,8 +19,8 @@ namespace CoolBooks.Controllers
     {
         private CoolBooksEntities db = new CoolBooksEntities();
 
-        public int AuthorId { get; private set; }
-        public string Title { get; private set; }
+        //public int AuthorId { get; private set; }
+        //public string Title { get; private set; }
 
         // GET: Books
         public ActionResult Index()
@@ -36,21 +36,32 @@ namespace CoolBooks.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //   Books books = db.Books.Find(id);
-
-            var abc = from b in db.Books
-                      join r in db.Reviews on b.Id equals r.BookId
-                      where b.Id == id
-                      select new { b.Id, b.Title, b.Description, b.ImagePath, b.Created, b.Authors, b.Genres, r.Text, r.UserId };
 
 
 
-            if (abc == null)
+
+            ViewData["Books"] = db.Books.Find(id);
+            
+           ViewData["Reviews"] =
+                from c in db.Reviews
+                where (c.BookId == id)
+                select c;
+
+
+
+
+
+            //if (books == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            // return View(books);
+            if (ViewData["Reviews"] == null)
             {
                 return HttpNotFound();
             }
-            // return View(books);
-            return View(abc);
+            return View();
+            
         }
 
         // GET: Books/Create

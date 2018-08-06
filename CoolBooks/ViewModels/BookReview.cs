@@ -9,7 +9,7 @@ namespace CoolBooks.ViewModels
     public class BookReviewViewModel
     {
         public Books Books { get; set; }
-        public List<Reviews> AllReview { get; set; }
+        public Reviews Reviews { get; set; }
 
     }
 }

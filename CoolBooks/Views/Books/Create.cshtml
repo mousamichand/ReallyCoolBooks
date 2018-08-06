@@ -114,7 +114,7 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" name="n1" value="Create" class="btn btn-default" />
+                    <input type="submit" name="n1" value="Create" class="btn btn-primary" />
                     <input type="submit" name="n1" value="autofill" class="btn btn-default" />
                     <button onclick="SearchBook()">Click me</button>
                 </div>
@@ -123,7 +123,7 @@
     }
 
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Back to List", "Index", new { id = string.Empty }, new { @class = "btn btn-primary " })
     </div>
 </body>
 </html>
