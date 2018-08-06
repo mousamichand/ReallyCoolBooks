@@ -20,6 +20,18 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Details</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#Resume').keyup(function (e) {
+                var max = 500;
+                var len = $(this).val().length;
+                var char = max - len;
+                $('#text-counter').html(char);
+            });
+        });
+
+    </script>
 </head>
 <body>
     <div>
@@ -67,7 +79,7 @@
                         @foreach (var reviews in rev)
     {
                     <tr>  <td colspan="2"><B>@reviews.UserId</B></td> </tr>
-                    <tr>  <td colspan="2">@reviews.Title</td> </tr>
+                    <tr>  <td colspan="2">@reviews.Title  @reviews.Created </td> </tr>
                     <tr><td>@reviews.Text </td><td> @Html.ActionLink("Delete", "Delete", new { id = string.Empty }, new { @class = "btn btn-primary " })</td></tr>
                     @*
     <td>@reviews.Rating</td> *@
@@ -76,23 +88,34 @@
                         <tr><td colspan="2"><B>USERNAME</B></td></tr>
                         <tr>
                             <td>
-                                @Html.TextArea("Review", new { maxlength = 500,  style = "width:100%; height:100px;"  }) </td>
-                            border
-                            <td>    @Html.ActionLink("Save", "Save", new { id = string.Empty }, new { @class = "btn btn-primary " })
+                                <span id="text-counter">4000</span> character(s) left.
+                                @Html.TextArea("Resume", htmlAttributes: new { rows = "5", cols = "100", @class = "form-control", maxlength = "4000" })
+                                @*   @Html.TextArea("Review", new { maxlength = 500, style = "width:100%; height:100px;" }) </ td > *@
 
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
 
-            </table>
-            </div >
+<td> @Html.ActionLink("Save", "Save", new { id = string.Empty }, new { @class = "btn btn-primary " })
 
-            <p>
+                                </td>
 
-                @*    @Html.ActionLink("Edit", "Edit", new { id = ViewBag.Books.Id }) | *@
-                @Html.ActionLink("Back to List", "Index", new { id = string.Empty }, new { @class = "btn btn-primary " })
-            </p>
+                                </tr>
+
+                                </table>
+
+                                </td>
+
+                                </tr>
+
+
+                                </table>
+
+                                </div>
+
+
+                                <p>
+
+                                @*    @Html.ActionLink("Edit", "Edit", new { id = ViewBag.Books.Id }) | *@
+                                @Html.ActionLink("Back to List", "Index", new { id = string.Empty }, new { @class = "btn btn-primary " })
+
+                                </p>
 </body>
 </html>
