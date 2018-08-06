@@ -42,6 +42,10 @@ namespace CoolBooks.Controllers
         public ActionResult SignUp()
         {
             //ViewBag.Id = new SelectList(db.Users, "UserId", "FirstName");
+            //AspNetUsers aspNetUsers = db.AspNetUsers.Find("424d3421-eba7-47b1-a43c-5ea612ea1c74");
+            //aspNetUsers.UserName = "Fucking Adam";
+
+//            return View(aspNetUsers);
             return View();
         }
 
@@ -89,7 +93,7 @@ namespace CoolBooks.Controllers
 
                 //                aspNetUsers.SecurityStamp = "HOHO";
 
-
+                
                 aspNetUsers.PhoneNumber = "";
                 aspNetUsers.PhoneNumberConfirmed = true;
 
