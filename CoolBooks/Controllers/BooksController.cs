@@ -349,14 +349,20 @@ else
 
         //    return View();
         //}
+      //  [HttpPost]
+        //public ActionResult Save(FormCollection collection)
+        //{
+        //    Reviews rev = new Reviews();
+        //    rev.UserId = "mchand";
+        //    rev.Text = collection["Comments"];
+        //    db.Reviews.Add(rev);
+        //    return RedirectToAction("Books", "Index");
+        //}
         [HttpPost]
-        public ActionResult Save(FormCollection collection)
+        public ActionResult Save()
         {
-            Reviews rev = new Reviews();
-            rev.UserId = "mchand";
-            rev.Text = collection["Comments"];
-            db.Reviews.Add(rev);
-            return RedirectToAction("Books", "Index");
+
+            return View();
         }
     }
 }
