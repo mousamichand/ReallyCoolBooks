@@ -36,7 +36,7 @@ namespace CoolBooks.Controllers
         public ActionResult LogIn([Bind(Include = "UserName")] AspNetUsers aspNetUsers)
         {
             bool hasErrors = false;
-            string userName = Request.Form["UserName"];
+            string userName = Request.Form["UserName"]; // TODO: Seee above and in cshtml
             string password = Request.Form["Password"];
             string passwordHash = AspNetUsersController.GetPasswordHash(password);
 
@@ -47,7 +47,7 @@ namespace CoolBooks.Controllers
             }
             if (userName.Trim() == "")
             {
-                ViewBag.ErrMessage = "Username must be filled in";
+                ViewBag.ErrMessage = "User name must be filled in";
                 hasErrors = true;
             }
             int count = (from i in db.AspNetUsers
@@ -73,6 +73,12 @@ namespace CoolBooks.Controllers
                 Session["UserInfo"] = userInfo; 
                 return RedirectToAction("../Home");
             }
+        }
+
+        public ActionResult LogOut()
+        {
+            Session["UserInfo"] = null;
+            return RedirectToAction("../Home");
         }
 
         public ActionResult About()
