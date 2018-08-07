@@ -44,7 +44,7 @@ namespace CoolBooks.Controllers
             return View();
         }
 
-      
+
 
         // POST: Users/Profile
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -53,26 +53,36 @@ namespace CoolBooks.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Profile([Bind(Include = "UserId,FirstName,LastName,Gender,Birthdate,Picture,Phone,Address,ZipCode,City,Country,Email,Info")] Users users)
         {
-
-
-            if (ModelState.IsValid)
+            bool hasErrors = false;
+            // ViewBag.UserId = new SelectList(db.AspNetUsers, "Email", users.UserId);
+           // ViewBag.UserId = new SelectList(db.AspNetUsers, "Email", "772509fa-cfff-4a68-a573-a62d9c9a0bb6");
+           // ViewBag.Email = "Adam@hotmail.com";
+            if (!ModelState.IsValid)
             {
-                
-                users.Created = DateTime.Now;
-                users.IsDeleted = false;
-                if (users.FirstName == null || users.LastName == null || users.Email == null)
-                {
-                    return View();
-                }
-
-                db.Users.Add(users);
-                    db.SaveChanges();
-                        return RedirectToAction("Index");
-                
+                ViewBag.ErrMessage = "There are error(s) in your input";
+                hasErrors = true;
             }
 
-            ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", users.UserId);
-            return View(users);
+
+
+            if (hasErrors)
+            {
+                return View();
+            }
+            else
+            {
+                users.Created = DateTime.Now;
+                users.IsDeleted = false;
+
+                users.Email = "hej";
+                db.Users.Add(users);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+
+
+
         }
 
         // GET: Users/Edit/5

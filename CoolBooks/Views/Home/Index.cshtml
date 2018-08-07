@@ -1,33 +1,51 @@
-﻿
-<div class="jumbotron">
+﻿@using CoolBooks.Models
+@model IEnumerable<CoolBooks.Models.Books>
 
-    <img src="~/Images/coolbooksbg.png" alt="CoolBooks" />
-    <p><br /></p>
-    <p class="lead">Welcome to CoolBooks! Here you can find books that you <strong>will</strong> want to read</p>
-    <p>Registered users can add books and reviews. Our administrators are experts on books. They constantly remove books. That is our strength, because here you will only find <strong>really</strong> cool books.</p>
-    <p><a href="https://en.wikipedia.org/wiki/Book" target="_blank" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
 
-@*
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Getting started home page Mousami testing i m mad</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile trtrtyrtyrtyrtyr.
-            </p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </div>
+    <div class="jumbotron">
+
+        <img src="~/Images/coolbooksbg.png" alt="CoolBooks" />
+        <p><br /></p>
+        <p class="lead">Welcome to CoolBooks! Here you can find books that you <strong>will</strong> want to read</p>
+        <p>Registered users can add books and reviews. Our administrators are experts on books. They constantly remove books. That is our strength, because here you will only find <strong>really</strong> cool books.</p>
+        <p><a href="https://en.wikipedia.org/wiki/Book" target="_blank" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
     </div>
-*@
+    
+        <div class="row">
+            @{
+                var counter = 1;
+            }
+            <br />
+            <br />
+            @foreach (var item in Model)
+            {
+
+                <div class="col-sm-4">
+                    <h2>@Html.DisplayFor(modelItem => item.Title)</h2>
+                    <img src=@item.ImagePath alt="Image not Available" width="200" height="200" />
+                    <br /><span style="color:#00bfff; font-weight: bold; text-transform: uppercase; font-size:15px;">@Html.DisplayFor(modelItem => item.Authors.FirstName) @Html.DisplayFor(modelItem => item.Authors.LastName)</span>
+                    <br />
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary " })
+                    @Html.ActionLink("View", "Details", new { id = item.Id }, new { @class = "btn btn-primary " })
+
+                </div>
+                <br />
+                if (counter % 3 == 0)
+                {
+                    @:</div><div class="row">
+                    counter = 0;
+                    }
+                    counter++;
+
+                    }
+
+                </div>
+    
+</body>
+    </html>
