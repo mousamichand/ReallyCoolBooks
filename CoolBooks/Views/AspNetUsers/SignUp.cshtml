@@ -29,23 +29,27 @@
     </div>
 
     <div class="form-group">
-        * @Html.LabelFor(model => model.PasswordHash, "Password", htmlAttributes: new { @class = "control-label col-md-2" })
-        @Html.Password("Password", "", new { @class = "form-control" })
+        @Html.LabelFor(model => model.PasswordHash, "Password", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.Password("Password", "", new { @class = "form-control" })
+        </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.PasswordHash, "Validate Password", htmlAttributes: new { @class = "control-label col-md-2" })
-        @Html.Password("Password2", "", new { @class = "form-control" })
+        <div class="col-md-10">
+            @Html.Password("Password2", "", new { @class = "form-control" })
+        </div>
     </div>
 
     @*
-            <div class="form-group">
-                @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
             </div>
+        </div>
 
     *@
 
@@ -57,13 +61,22 @@
         </div>
     </div>
 
-    @Html.MathCaptcha()
-    @ViewBag.ErrorMessage
 
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Sign up" class="btn btn-default" />
+        <div class="col-md-10">
+            <table border="0" style="margin-left:185px">
+                <tr><td> @Html.MathCaptcha()´</td></tr>
+            </table>
         </div>
     </div>
 
-}
+
+        @ViewBag.ErrorMessage
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Sign up" class="btn btn-primary" />
+            </div>
+        </div>
+
+        }

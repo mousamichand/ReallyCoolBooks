@@ -97,15 +97,19 @@ namespace CoolBooks.Controllers
                 {
                     Reviews rev = new Reviews();
                     rev.UserId = "mchand";
-                    rev.BookId = 1;
+                    rev.BookId = 21;
                     rev.Text = Request.Form["Comments"];
-                    string star1 = Request.Form["star"];
-                  //  string star2 = Request.Form["star-2"];
+                    rev.Rating = Byte.Parse(Request.Form["star"]);
+                    //  string star2 = Request.Form["star-2"];
                     //string star3 = Request.Form["star-3"];
                     //string star4 = Request.Form["star-4"];
                     //string star5 = RequesForm["star-5"];
+                    rev.Created = DateTime.Now;
+                    rev.Title= Request.Form["RevTitle"];
+
                     db.Reviews.Add(rev);
-                    return View("Details");
+                    db.SaveChanges();
+                    return RedirectToAction("Details", new { id = rev.BookId });
 
                 }
                 else
