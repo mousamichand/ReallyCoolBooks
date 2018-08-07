@@ -41,11 +41,11 @@ namespace CoolBooks.Controllers
 
 
             ViewData["Books"] = db.Books.Find(id);
-
-            ViewData["Reviews"] =
-                 from c in db.Reviews
-                 where (c.BookId == id)
-                 select c;
+            
+           ViewData["Reviews"] =
+                from c in db.Reviews
+                where (c.BookId == id)
+                select c;
 
 
 
@@ -61,7 +61,7 @@ namespace CoolBooks.Controllers
                 return HttpNotFound();
             }
             return View();
-
+            
         }
 
         // GET: Books/Create
@@ -85,13 +85,13 @@ namespace CoolBooks.Controllers
                 books.GenreId = 1;
                 string s = Request.Form["n1"];
 
-                if (s.Equals("Create"))
+                if(s.Equals("Create"))
                 {
-                    books.Created = DateTime.Now;
-                    books.IsDeleted = false;
-                    db.Books.Add(books);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                books.Created = DateTime.Now;
+                books.IsDeleted = false;
+                db.Books.Add(books);
+                db.SaveChanges();
+                return RedirectToAction("Index");
                 }
                 else if(s.Equals("Save"))
                 {
@@ -110,17 +110,36 @@ namespace CoolBooks.Controllers
                 }
                 else
                 {
-                    // Item  book = GoogleBooksAPI.SearchBook(books.ISBN);
+                   // Item  book = GoogleBooksAPI.SearchBook(books.ISBN);
 
-                    //ViewBag.booktitle = book.VolumeInfo.Title;
+                   //ViewBag.booktitle = book.VolumeInfo.Title;
 
                     ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", books.UserId);
                     ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName", books.AuthorId);
                     ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", books.GenreId);
-                    return View();
 
+
+                    //        Books book = new Books();
+                    //        book.GenreId = 1 ;
+                    //        book.AuthorId = 1;
+                    //    book.Title = "crazy .net mvc";
+                    //return View(book);
+
+
+                    Books objbook = new Books
+                    {
+                        Id = 1,
+                        AuthorId = 1,
+                        UserId = "mchand",
+                        ISBN = "1238",
+                        Title = "Priti kumari",
+                        Created = DateTime.Now
+
+                    };
+
+                    return View("create", objbook);
                 }
-
+                
             }
 
             else
@@ -131,14 +150,14 @@ namespace CoolBooks.Controllers
         //[HttpPost]
         //public void autofill([Bind(Include = "ISBN")] Books books)
         //{
-
+           
         //        GoogleBooksAPI.SearchBook(books.ISBN);
         //        books.GenreId = 1;
         //        books.Created = DateTime.Now;
         //        books.IsDeleted = false;
 
-
-
+           
+          
 
         //}
 
@@ -336,20 +355,11 @@ else
 
         //    return View();
         //}
-      //  [HttpPost]
-        //public ActionResult Save(FormCollection collection)
-        //{
-        //    Reviews rev = new Reviews();
-        //    rev.UserId = "mchand";
-        //    rev.Text = collection["Comments"];
-        //    db.Reviews.Add(rev);
-        //    return RedirectToAction("Books", "Index");
-        //}
-       
+
     }
 }
-       
-    
+
+
 
 
 
