@@ -93,6 +93,21 @@ namespace CoolBooks.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
+                else if(s.Equals("Save"))
+                {
+                    Reviews rev = new Reviews();
+                    rev.UserId = "mchand";
+                    rev.BookId = 1;
+                    rev.Text = Request.Form["Comments"];
+                    string star1 = Request.Form["star"];
+                  //  string star2 = Request.Form["star-2"];
+                    //string star3 = Request.Form["star-3"];
+                    //string star4 = Request.Form["star-4"];
+                    //string star5 = RequesForm["star-5"];
+                    db.Reviews.Add(rev);
+                    return View("Details");
+
+                }
                 else
                 {
                     // Item  book = GoogleBooksAPI.SearchBook(books.ISBN);
@@ -102,27 +117,8 @@ namespace CoolBooks.Controllers
                     ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", books.UserId);
                     ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName", books.AuthorId);
                     ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", books.GenreId);
+                    return View();
 
-
-                    //        Books book = new Books();
-                    //        book.GenreId = 1 ;
-                    //        book.AuthorId = 1;
-                    //    book.Title = "crazy .net mvc";
-                    //return View(book);
-
-
-                    Books objbook = new Books
-                    {
-                        Id = 1,
-                        AuthorId = 1,
-                        UserId = "mchand",
-                        ISBN = "1238",
-                        Title = "Priti kumari",
-                        Created = DateTime.Now
-
-                    };
-
-                    return View("create", objbook);
                 }
 
             }
@@ -313,17 +309,8 @@ else
         }
 
 
-        //write review and display review
-        public ActionResult ViewModelDemo(int id)
-        {
-
-            var booksReview = (from b in db.Books
-                               join r in db.Reviews on b.Id equals r.BookId
-                               where b.Id == id
-                               select new { b.Id, b.Title, b.Description, b.ImagePath, r.Text, r.UserId }).ToList();
-
-            return View(booksReview);
-        }
+        
+       
 
 
 
@@ -358,12 +345,7 @@ else
         //    db.Reviews.Add(rev);
         //    return RedirectToAction("Books", "Index");
         //}
-        [HttpPost]
-        public ActionResult Save()
-        {
-
-            return View();
-        }
+       
     }
 }
        

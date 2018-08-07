@@ -13,18 +13,22 @@
     </p>
     <table class="table table-striped" border="0">
         <tr>
+            <td>Image</td>
             <td>Title</td>
             <td>Description</td>
             <td>ISBN</td>
             <td>Genre</td>
             <td colspan="3">Author</td>
-          
+
         </tr>
 
 
             @foreach (var item in Model)
     {
         <tr class="table table-striped">
+            <td>
+                <img src=@item.ImagePath alt="Image not Available" width="200" height="200" />
+            </td>
             <td class="table-striped">
                 @Html.DisplayFor(modelItem => item.Title)
             </td>

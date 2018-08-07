@@ -40,6 +40,7 @@
         <hr />
         @using (Html.BeginForm())
     {
+        @Html.AntiForgeryToken()
         <table class="table table-striped" border="0">
             <tr rowspan="2">
                 <td>
@@ -47,36 +48,36 @@
                 </td>
                 <td>
 
-    <table class="table table-striped" border="0">
-    <tr>
-    <td> Title</td>
-    <td>@bk.Title</td>
+                    <table class="table table-striped" border="0">
+                        <tr>
+                            <td> Title</td>
+                            <td>@bk.Title</td>
 
-    </tr>
-    <tr>
-    <td> Description</td>
-    <td>@bk.Description</td>
+                        </tr>
+                        <tr>
+                            <td> Description</td>
+                            <td>@bk.Description</td>
 
-    </tr>
-    <tr>
-    <td>  Author</td>
-    <td> @bk.Authors.FirstName</td>
+                        </tr>
+                        <tr>
+                            <td>  Author</td>
+                            <td> @bk.Authors.FirstName</td>
 
-    </tr>
-    <tr>
-    <td>  Genres</td>
-    <td> @bk.Genres.Name</td>
+                        </tr>
+                        <tr>
+                            <td>  Genres</td>
+                            <td> @bk.Genres.Name</td>
 
-    </tr>
-    </table>
-    </td>
+                        </tr>
+                    </table>
+                </td>
 
-    </tr>
+            </tr>
 
-    <tr>
-    <td width="400" height="200"></td>
-    <td align="right">
-    <table align="right" class="table table-striped" border="0">
+            <tr>
+                <td width="400" height="200"></td>
+                <td align="right">
+                    <table align="right" class="table table-striped" border="0">
 
                         @foreach (var reviews in rev)
                     {
@@ -96,26 +97,9 @@
 
                                 <br />
                                 <br />
-   
-    <form id="ratingsForm">
-    <div class="stars">
-    <input type="radio" name="star" class="star-1" id="star-1" />
-    <label class="star-1" for="star-1">1</label>
-    <input type="radio" name="star" class="star-2" id="star-2" />
-    <label class="star-2" for="star-2">2</label>
-    <input type="radio" name="star" class="star-3" id="star-3" />
-    <label class="star-3" for="star-3">3</label>
-    <input type="radio" name="star" class="star-4" id="star-4" />
-    <label class="star-4" for="star-4">4</label>
-    <input type="radio" name="star" class="star-5" id="star-5" />
-    <label class="star-5" for="star-5">5</label>
-    <span></span>
-    </div>
-
-    </form>
 
                             <td>
-                                <input type="submit" name="n1" value="Save" class="btn btn-primary" />
+                                <input type="submit" name="n1" value="Save" formaction=@Url.Action("Create") formmethod="post" class="btn btn-primary" />
                                 @Html.ActionLink("Save Jonas", "Save", new { id = string.Empty }, new { @class = "btn btn-primary " })
 
                             </td>
@@ -130,15 +114,30 @@
 
 
         </table>
+
+
+
+        <div class="stars">
+            <input type="radio" name="star" class="star-1" id="star-1" value="1" />
+            <label class="star-1" for="star-1">1</label>
+            <input type="radio" name="star" class="star-2" id="star-2" value="2" />
+            <label class="star-2" for="star-2">2</label>
+            <input type="radio" name="star" class="star-3" id="star-3" value="3" />
+            <label class="star-3" for="star-3">3</label>
+            <input type="radio" name="star" class="star-4" id="star-4" value="4" />
+            <label class="star-4" for="star-4">4</label>
+            <input type="radio" name="star" class="star-5" id="star-5" value="5" />
+            <label class="star-5" for="star-5">5</label>
+            <span></span>
+        </div>
 }
     </div>
-       
 
-    <p>
+        <p>
 
-        @*    @Html.ActionLink("Edit", "Edit", new { id = ViewBag.Books.Id }) | *@
-        @Html.ActionLink("Back to List", "Index", new { id = string.Empty }, new { @class = "btn btn-primary " })
+            @*    @Html.ActionLink("Edit", "Edit", new { id = ViewBag.Books.Id }) | *@
+            @Html.ActionLink("Back to List", "Index", new { id = string.Empty }, new { @class = "btn btn-primary " })
 
-    </p>
-</body>
+        </p>
+    </body>
 </html>
