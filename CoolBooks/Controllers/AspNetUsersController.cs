@@ -7,8 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using CoolBooks.Models;
-using System.Web.Security;
+using System.Security.Cryptography;
 using CaptchaMvc.HtmlHelpers;
+using System.Text;
 
 namespace CoolBooks.Controllers
 {
@@ -38,92 +39,80 @@ namespace CoolBooks.Controllers
             return View(aspNetUsers);
         }
 
-        // GET: AspNetUsers/Create
+        // GET: AspNetUsers/Signup
         public ActionResult SignUp()
         {
-            //ViewBag.Id = new SelectList(db.Users, "UserId", "FirstName");
-            //AspNetUsers aspNetUsers = db.AspNetUsers.Find("424d3421-eba7-47b1-a43c-5ea612ea1c74");
-            //aspNetUsers.UserName = "Fucking Adam";
-
-//            return View(aspNetUsers);
             return View();
         }
 
-
-
-
-        /*
-        // POST: AspNetUsers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] AspNetUsers aspNetUsers)
+        public static string GetPasswordHash(string password)
         {
-            if (ModelState.IsValid)
-            {
-                db.AspNetUsers.Add(aspNetUsers);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.Id = new SelectList(db.Users, "UserId", "FirstName", aspNetUsers.Id);
-            return View(aspNetUsers);
+            byte[] data = Encoding.UTF8.GetBytes(password);
+            SHA512 sha = new SHA512Managed();
+            data = sha.ComputeHash(data);
+            return Encoding.UTF8.GetString(data);
         }
-        */
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SignUp([Bind(Include = "Email,PasswordHash,UserName")] AspNetUsers aspNetUsers)
+        public ActionResult SignUp([Bind(Include = "Email,UserName")] AspNetUsers aspNetUsers)
         {
-            //   public ActionResult Create([Bind(Include = "Id,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] AspNetUsers aspNetUsers)
+            bool hasErrors = false;
+            string password = Request.Form["Password"];
+            string password2 = Request.Form["Password2"];
 
-            if (ModelState.IsValid)
+            // TODO Validate email?
+            // java script for easy checks?
+            // email unique?
+            // salt? as securitystamp
+            // no dropdowns
+            // update access failed count? in login?
+            // model isvalid?          
+            // login in using either username or email?
+            // phonenumber etc.
+            // fix isbn problem
+
+            if (!ModelState.IsValid)
             {
-                string password = Request.Form["Password"];
+                ViewBag.ErrMessage = "There are error(s) in your input";
+                hasErrors = true;
+            }
+            if (!this.IsCaptchaValid("Validate your captcha"))
+            {
+                ViewBag.ErrMessage = "Your captcha answer is incorrect";
+                hasErrors = true;
+            }
+            if (password != password2)
+            {
+                ViewBag.ErrMessage = "Passwords don't match";
+                hasErrors = true;
+            }
+            if (password.Trim() == "")
+            {
+                ViewBag.ErrMessage = "Password must be filled in";
+                hasErrors = true;
+            }
+            if (userName )
 
-                aspNetUsers.PasswordHash = password + "Hashed";
 
+            if (hasErrors)
+            {
+                return View();
+            } else { 
                 aspNetUsers.Id = Guid.NewGuid().ToString();
-
- //               aspNetUsers.SecurityStamp = SecurePasswordHasher.Hash(aspNetUsers.PasswordHash);
-                //                   public string Id { get; set; }
-                //        public string Email { get; set; }
-                //        public string PasswordHash { get; set; }
                 aspNetUsers.EmailConfirmed = true;
-
-                //                aspNetUsers.SecurityStamp = "HOHO";
-
-                
+                aspNetUsers.PasswordHash = GetPasswordHash(password);
+                aspNetUsers.SecurityStamp = "";
                 aspNetUsers.PhoneNumber = "";
-                aspNetUsers.PhoneNumberConfirmed = true;
-
+                aspNetUsers.PhoneNumberConfirmed = false;
                 aspNetUsers.TwoFactorEnabled = false;
-                aspNetUsers.LockoutEndDateUtc = DateTime.Now;
+                aspNetUsers.LockoutEndDateUtc = null;
                 aspNetUsers.LockoutEnabled = false;
                 aspNetUsers.AccessFailedCount = 0;
-
-                if (this.IsCaptchaValid("Validate your captcha"))
-                {
-                    ViewBag.ErrMessage = "Validation Message";
-                    db.AspNetUsers.Add(aspNetUsers);
-                    db.SaveChanges();
-                    return RedirectToAction("../Users/Profile");
-                } else
-                {
-                    return View();
-                }
-
-            }
-
-
-            ViewBag.Id = new SelectList(db.Users, "UserId", "FirstName", aspNetUsers.Id);
-
-
-
-
-            return View(aspNetUsers);
+                db.AspNetUsers.Add(aspNetUsers);
+                db.SaveChanges();
+                return RedirectToAction("../Users/Profile");
+            } 
         }
 
         // GET: AspNetUsers/Edit/5
