@@ -12,8 +12,6 @@ using CoolBooks.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using CoolBooks.ViewModels;
-//using CoolBooks.ViewModels;
-
 
 namespace CoolBooks.Controllers
 {
@@ -27,10 +25,54 @@ namespace CoolBooks.Controllers
             return View(books.ToList());
         }
 
-        public ActionResult Login()
+        // GET: AspNetUsers/LogIn
+        public ActionResult LogIn()
         {
-            ViewBag.Message = "Login.";
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogIn([Bind(Include = "UserName")] AspNetUsers aspNetUsers)
+        {
+            bool hasErrors = false;
+            string userName = Request.Form["UserName"];
+            string password = Request.Form["Password"];
+            string passwordHash = AspNetUsersController.GetPasswordHash(password);
+
+            if (password.Trim() == "")
+            {
+                ViewBag.ErrMessage = "Password must be filled in";
+                hasErrors = true;
+            }
+            if (userName.Trim() == "")
+            {
+                ViewBag.ErrMessage = "Username must be filled in";
+                hasErrors = true;
+            }
+            int count = (from i in db.AspNetUsers
+                         where (i.UserName == userName)
+                         select i).Count();
+            if (0 == count)
+            {
+                ViewBag.ErrMessage = "User name does not exist";
+                hasErrors = true;
+            }
+            AspNetUsers userInfo = (from user in db.AspNetUsers
+                                    where user.UserName == userName
+                                    select user).First<AspNetUsers>();
+            if (userInfo.PasswordHash != passwordHash)
+            {
+                ViewBag.ErrMessage = "Password is incorrect";
+                hasErrors = true;
+            }
+            if (hasErrors)
+            {
+                return View();
+            } else {
+                Session["UserInfo"] = userInfo; 
+                return RedirectToAction("../Home");
+            }
         }
 
         public ActionResult About()

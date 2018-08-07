@@ -17,6 +17,7 @@ namespace CoolBooks
     {
         protected void Application_Start()
         {
+            Session["UserInfo"] = null;
             GoogleBooksAPI.SearchBook("9780547928197");
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
