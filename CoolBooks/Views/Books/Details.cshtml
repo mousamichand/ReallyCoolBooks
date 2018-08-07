@@ -87,9 +87,9 @@
                             @reviews.Title  @reviews.Created
 
                             @for (int i = 1; i < reviews.Rating; i++)
-        {
-                    <img src="~/Images/star-fill-lg.png" height="20" />
-}
+                         {
+                              <img src="~/Images/star-fill-lg.png" height="20" />
+                         }
                         </td>
                     </tr>
                     <tr><td>@reviews.Text </td><td> @Html.ActionLink("Delete", "Delete", new { id = string.Empty }, new { @class = "btn btn-primary " })</td></tr>
