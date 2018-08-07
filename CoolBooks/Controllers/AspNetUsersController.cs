@@ -92,7 +92,7 @@ namespace CoolBooks.Controllers
                 ViewBag.ErrMessage = "Password must be filled in";
                 hasErrors = true;
             }
-            if (userName )
+            
 
 
             if (hasErrors)
