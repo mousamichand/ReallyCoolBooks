@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using CoolBooks
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -32,6 +33,11 @@
                     <li>@Html.ActionLink("Books", "Create", "Books")</li>
                     <li>@Html.ActionLink("Authors", "Create", "Authors")</li>
                     <li>@Html.ActionLink("Genres", "Create", "Genres")</li>
+                    @if (@Session["UserInfo"] != null)
+    {
+                    <li>@Html.ActionLink("Welcome " + @Session["UserName"], null,null, new { @class = "btn btn-primary " })</li>
+                
+}
                     <li>@Html.ActionLink("Search", "Index", "Search")</li>
                 </ul>
             </div>

@@ -11,7 +11,8 @@ namespace CoolBooks.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Genres
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,7 +22,9 @@ namespace CoolBooks.Models
         }
     
         public int Id { get; set; }
+        [Required(ErrorMessage = "Genres Name  is Required")]
         public string Name { get; set; }
+        [Required(ErrorMessage = "Description  is Required")]
         public string Description { get; set; }
         public System.DateTime Created { get; set; }
         public bool IsDeleted { get; set; }
