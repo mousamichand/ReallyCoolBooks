@@ -98,7 +98,7 @@ namespace CoolBooks.Controllers
 
         public ActionResult LogOut()
         {
-            Session.Remove("UserInfo");
+            Session.Clear();
             return RedirectToAction("../Home");
         }
 
