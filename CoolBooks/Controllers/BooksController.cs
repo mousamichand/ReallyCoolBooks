@@ -67,20 +67,21 @@ namespace CoolBooks.Controllers
         // GET: Books/Create ****
         public ActionResult Create()
         {
-            if (Session["UserInfo"] != null) // If registered
-            {
-                ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email");
-                ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName");
-                ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name");
-                return View();
-            }
+            ViewBag.UserId = Session["username"];
 
+
+            ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName");
+            ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name");
+            return View();
+        }
+        /*
             else // Else return to index page
             {
                 return Redirect("../Books/Index");
             }
             
         }
+        */
 
         // POST: Books/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -91,7 +92,7 @@ namespace CoolBooks.Controllers
         {
             if (ModelState.IsValid)
             {
-                //books.GenreId = 1;
+               // books.GenreId = 1;
                 string s = Request.Form["n1"];
 
 
@@ -109,8 +110,8 @@ namespace CoolBooks.Controllers
                         {
 
 
-                            Item item = GoogleBooksAPI.SearchBook(line); 
-                            books.UserId = "772509fa-cfff-4a68-a573-a62d9c9a0bb6";
+                            Item item = GoogleBooksAPI.SearchBook(line); ;
+                            books.UserId = "c2d8fc5a-9218-42be-ba0e-2dcef8621649";
                             books.AuthorId = GetAuthorByName(item.VolumeInfo.Authors[0]);
                             books.Created = DateTime.Now;
                             books.GenreId = GetGenreByName(item.VolumeInfo.Categories[0]);
