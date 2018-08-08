@@ -29,9 +29,7 @@
 
 
                 <div class="col-md-10">
-
-                    @Html.TextBox("UserId", "mchand", htmlAttributes: new { @readonly = "readonly" })
-                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                    @ViewBag.UserId
                 </div>
             </div>
 

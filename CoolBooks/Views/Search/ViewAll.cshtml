@@ -38,7 +38,7 @@
         {
         <tr>
             <td>
-                @Html.ActionLink(item.Title, "BookDetails", new { Id = item.Id }, null /* html attributes */)
+                @Html.ActionLink(item.Title, "Details","Books", new { Id = item.Id }, null /* html attributes */)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)

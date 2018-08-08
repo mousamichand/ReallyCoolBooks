@@ -36,8 +36,8 @@ namespace CoolBooks.Models
         [Range(1, 10)]
        
         public Nullable<short> Part { get; set; }
-        //[Required(ErrorMessage = "Description  is Required")]
-        //[StringLength(4000)]
+        [Required(ErrorMessage = "Description  is Required")]
+        [StringLength(4000)]
 
         public string Description { get; set; }
         //[StringLength(40)]
