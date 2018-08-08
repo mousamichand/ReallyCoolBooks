@@ -82,7 +82,9 @@ namespace CoolBooks.Controllers
         /*
             else // Else return to index page
             {
-                return Redirect("../Books/Index");
+                return RedirectToAction("Home", "Noaccess");
+                //return Redirect("../Authors/Index");
+                //return Redirect("../Home/Noaccess");
             }
             
         }
@@ -320,18 +322,18 @@ namespace CoolBooks.Controllers
          //   name = name.Trim();
            // string[] names = name.Split();
             //string lastName = names.Last<string>();
-            string fstName = name;
+           // string fstName = name;
            // for(int i = 0; i < names.Length-1; ++i)
             //    fstName += names[i] + " ";
             //fstName = fstName.Trim();
             List<Authors> authors = db.Authors.ToList<Authors>();
             foreach (Authors author in authors)
-                if ((author.FirstName.ToLower() == fstName.ToLower()))
+                if ((author.FirstName.ToLower() == name.ToLower()))
                     
                     return author.Id;
             Authors model = db.Authors.Create();
-            model.FirstName = fstName;
-            model.LastName = "";
+            model.FirstName = name;
+            model.LastName = "poop";
             model.Created = DateTime.Now;
             model.IsDeleted = false;
             db.Authors.Add(model);
@@ -447,7 +449,7 @@ else
 
 
 
-        // GET: Books/Delete/5 *****
+        // GET: Books/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -462,14 +464,19 @@ else
             return View(books);
         }
 
-        // POST: Books/Delete/5
+        // POST: Books/Delete/5 ****
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Books books = db.Books.Find(id);
-            db.Books.Remove(books);
-            db.SaveChanges();
+
+            if ((string)Session["UserId"] == books.UserId)
+            {
+                db.Books.Remove(books);
+                db.SaveChanges();
+            }
+
             return RedirectToAction("Index");
         }
 

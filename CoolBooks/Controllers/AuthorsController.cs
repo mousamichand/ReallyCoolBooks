@@ -46,16 +46,22 @@ namespace CoolBooks.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,Description,Created,IsDeleted")] Authors authors)
+        public ActionResult Create([Bind(Include = "FirstName,Description")] Authors authors)
         {
-            if (ModelState.IsValid)
-            {
-                db.Authors.Add(authors);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            Authors model = db.Authors.Create();
+            model.FirstName = Request.Form["FirstName"];
+            model.Description = Request.Form["Description"];
+            model.LastName = "poop";
+            model.Created = DateTime.Now;
+            model.IsDeleted = false;
 
-            return View(authors);
+            
+            db.Authors.Add(model);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+            
+
+            
         }
 
         // GET: Authors/Edit/5
@@ -78,10 +84,11 @@ namespace CoolBooks.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,Description,Created,IsDeleted")] Authors authors)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,Description,Created,IsDeleted")] Authors authors)
         {
             if (ModelState.IsValid)
             {
+                authors.LastName = "";
                 db.Entry(authors).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
