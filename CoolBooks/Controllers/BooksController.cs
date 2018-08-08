@@ -207,7 +207,7 @@ namespace CoolBooks.Controllers
 
         }
 
-
+        /*
         // POST: Books/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -268,7 +268,7 @@ namespace CoolBooks.Controllers
             return Index();
         }
 
-
+            */
 
 
         //[HttpPost]
