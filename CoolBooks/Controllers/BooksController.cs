@@ -305,18 +305,18 @@ namespace CoolBooks.Controllers
          //   name = name.Trim();
            // string[] names = name.Split();
             //string lastName = names.Last<string>();
-            string fstName = name;
+           // string fstName = name;
            // for(int i = 0; i < names.Length-1; ++i)
             //    fstName += names[i] + " ";
             //fstName = fstName.Trim();
             List<Authors> authors = db.Authors.ToList<Authors>();
             foreach (Authors author in authors)
-                if ((author.FirstName.ToLower() == fstName.ToLower()))
+                if ((author.FirstName.ToLower() == name.ToLower()))
                     
                     return author.Id;
             Authors model = db.Authors.Create();
-            model.FirstName = fstName;
-            model.LastName = "";
+            model.FirstName = name;
+            model.LastName = "poop";
             model.Created = DateTime.Now;
             model.IsDeleted = false;
             db.Authors.Add(model);
