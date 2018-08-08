@@ -127,9 +127,21 @@ namespace CoolBooks.Controllers
                 aspNetUsers.LockoutEndDateUtc = null;
                 aspNetUsers.LockoutEnabled = false;
                 aspNetUsers.AccessFailedCount = 0;
+                aspNetUsers.AspNetRoles.Add(db.AspNetRoles.Find(2));
                 db.AspNetUsers.Add(aspNetUsers);
+
+                Users users = new Users();
+                users.UserId = aspNetUsers.Id;
+                users.FirstName = "";
+                users.LastName = "";
+                users.Email = "";
+                users.Created = DateTime.Now;
+                users.IsDeleted = false;
+                db.Users.Add(users);
+
                 db.SaveChanges();
                 Session["UserInfo"] = aspNetUsers;
+
                 return RedirectToAction("../Users/Profile");
             }
         }
