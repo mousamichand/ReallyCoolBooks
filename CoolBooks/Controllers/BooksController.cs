@@ -77,7 +77,9 @@ namespace CoolBooks.Controllers
 
             else // Else return to index page
             {
-                return Redirect("../Books/Index");
+                return RedirectToAction("Home", "Noaccess");
+                //return Redirect("../Authors/Index");
+                //return Redirect("../Home/Noaccess");
             }
             
         }
@@ -431,7 +433,7 @@ else
 
 
 
-        // GET: Books/Delete/5 *****
+        // GET: Books/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -446,14 +448,19 @@ else
             return View(books);
         }
 
-        // POST: Books/Delete/5
+        // POST: Books/Delete/5 ****
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Books books = db.Books.Find(id);
-            db.Books.Remove(books);
-            db.SaveChanges();
+
+            if ((string)Session["UserId"] == books.UserId)
+            {
+                db.Books.Remove(books);
+                db.SaveChanges();
+            }
+
             return RedirectToAction("Index");
         }
 

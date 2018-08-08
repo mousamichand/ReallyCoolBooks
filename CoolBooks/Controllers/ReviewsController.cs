@@ -35,12 +35,22 @@ namespace CoolBooks.Controllers
         {
             try
             {
-                
-                Reviews rev = new Reviews();
-                rev.UserId = "mchand";
-                rev.Text = collection["resume"];
-                db.Reviews.Add(rev);
-                return RedirectToAction("Books","Index"); ;
+
+                if (Session["UserInfo"] != null) // If registered
+                {
+                    Reviews rev = new Reviews();
+                    rev.UserId = "mchand";
+                    rev.Text = collection["resume"];
+                    db.Reviews.Add(rev);
+                }
+
+                else
+                {
+                    return RedirectToAction("Home", "Noaccess"); // **** ;
+                    //return RedirectToAction("Noaccess", "Home"); // **** ;
+                }
+
+                return RedirectToAction("Books","Index"); // **** ;
             }
             catch
             {

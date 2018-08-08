@@ -363,6 +363,8 @@
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Search\ViewAll.cshtml" />
     <Content Include="Views\Search\BookDetails.cshtml" />
+    <Content Include="Views\Home\Noaccess.cshtml" />
+    <Content Include="Views\Home\Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
