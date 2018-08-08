@@ -82,7 +82,7 @@ namespace CoolBooks.Controllers
         {
             if (ModelState.IsValid)
             {
-                books.GenreId = 1;
+                //books.GenreId = 1;
                 string s = Request.Form["n1"];
 
 
@@ -100,7 +100,7 @@ namespace CoolBooks.Controllers
                         {
 
 
-                            Item item = GoogleBooksAPI.SearchBook(line); ;
+                            Item item = GoogleBooksAPI.SearchBook(line); 
                             books.UserId = "772509fa-cfff-4a68-a573-a62d9c9a0bb6";
                             books.AuthorId = GetAuthorByName(item.VolumeInfo.Authors[0]);
                             books.Created = DateTime.Now;

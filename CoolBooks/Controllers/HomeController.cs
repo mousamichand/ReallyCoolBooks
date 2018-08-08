@@ -36,7 +36,7 @@ namespace CoolBooks.Controllers
 
 
 
-          //  ViewData["Books"] = db.Books.Find(1);
+           ViewData["Books"] = db.Books.Find(73);
 
 
             return View(books.ToList());
