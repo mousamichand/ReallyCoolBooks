@@ -74,13 +74,14 @@ namespace CoolBooks.Controllers
             ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name");
             return View();
         }
-
+        /*
             else // Else return to index page
             {
                 return Redirect("../Books/Index");
             }
             
         }
+        */
 
         // POST: Books/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
