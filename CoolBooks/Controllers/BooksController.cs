@@ -90,6 +90,25 @@ namespace CoolBooks.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,UserId,AuthorId,GenreId,Title,AlternativeTitle,Part,Description,ISBN,PublishDate,ImagePath,Created,IsDeleted")] Books books)
         {
+            string s1 = Request.Form["n1"];
+            if (s1.Equals("Save"))
+            {
+                Reviews rev = new Reviews();
+                rev.UserId = ((AspNetUsers)Session["UserInfo"]).Id;
+                rev.BookId = Int32.Parse(Request.Form["TxtBookId"]);
+                rev.Text = Request.Form["Comments"];
+                rev.Rating = Byte.Parse(Request.Form["star"]);
+            
+                rev.Created = DateTime.Now;
+                rev.Title = Request.Form["RevTitle"];
+
+                db.Reviews.Add(rev);
+                db.SaveChanges();
+                return RedirectToAction("Details", new { id = rev.BookId });
+
+            }
+
+
             if (ModelState.IsValid)
             {
                // books.GenreId = 1;
@@ -150,25 +169,25 @@ namespace CoolBooks.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
                 }
-                else if(s.Equals("Save"))
-                {
-                    Reviews rev = new Reviews();
-                    rev.UserId = "mchand";
-                    rev.BookId = 21;
-                    rev.Text = Request.Form["Comments"];
-                    rev.Rating = Byte.Parse(Request.Form["star"]);
-                    //  string star2 = Request.Form["star-2"];
-                    //string star3 = Request.Form["star-3"];
-                    //string star4 = Request.Form["star-4"];
-                    //string star5 = RequesForm["star-5"];
-                    rev.Created = DateTime.Now;
-                    rev.Title= Request.Form["RevTitle"];
+                //else if(s.Equals("Save"))
+                //{
+                //    Reviews rev = new Reviews();
+                //    rev.UserId = "mchand";
+                //    rev.BookId = 21;
+                //    rev.Text = Request.Form["Comments"];
+                //    rev.Rating = Byte.Parse(Request.Form["star"]);
+                //    //  string star2 = Request.Form["star-2"];
+                //    //string star3 = Request.Form["star-3"];
+                //    //string star4 = Request.Form["star-4"];
+                //    //string star5 = RequesForm["star-5"];
+                //    rev.Created = DateTime.Now;
+                //    rev.Title= Request.Form["RevTitle"];
 
-                    db.Reviews.Add(rev);
-                    db.SaveChanges();
-                    return RedirectToAction("Details", new { id = rev.BookId });
+                //    db.Reviews.Add(rev);
+                //    db.SaveChanges();
+                //    return RedirectToAction("Details", new { id = rev.BookId });
 
-                }
+                //}
                 else
                 {
                    // Item  book = GoogleBooksAPI.SearchBook(books.ISBN);
@@ -205,7 +224,7 @@ namespace CoolBooks.Controllers
 
             else
                 return View(books);
-
+    
         }
 
         /*
