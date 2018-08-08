@@ -184,7 +184,7 @@ namespace CoolBooks.Controllers
             string jsonData = response.Content.ReadAsStringAsync().Result;
             BookInfos books = JsonConvert.DeserializeObject<BookInfos>(jsonData);
         }
-    }
+    
 
     public class BookInfos
     {
@@ -301,6 +301,7 @@ namespace CoolBooks.Controllers
         [JsonProperty("thumbnail")]
         public string Thumbnail { get; set; }
     }
+
 
 
 }

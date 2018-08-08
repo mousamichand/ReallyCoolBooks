@@ -32,13 +32,20 @@ namespace CoolBooks.Controllers
         public ActionResult Index()
         {
             var books = db.Books.Include(b => b.AspNetUsers).Include(b => b.Authors).Include(b => b.Genres);
-            
 
-
-
-          //  ViewData["Books"] = db.Books.Find(1);
-
-
+            List<int> ids = (from id in db.Books
+                         select id.Id).ToList<int>();
+            if (ids.Count > 0)
+            {
+                Random random = new Random();
+                int i = random.Next(0, ids.Count);
+                ViewData["Books"] = db.Books.Find(ids[i]);
+            }
+            else
+            {
+                ViewData["Books"] = null;
+                return View();
+            }
             return View(books.ToList());
         }
 
@@ -98,7 +105,7 @@ namespace CoolBooks.Controllers
 
         public ActionResult LogOut()
         {
-            Session.Remove("UserInfo");
+            Session.Clear();
             return RedirectToAction("../Home");
         }
 

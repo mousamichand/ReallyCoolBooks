@@ -74,8 +74,7 @@ namespace CoolBooks.Controllers
 
             if (!ModelState.IsValid)
             {
-                ViewBag.ErrMessage = ViewBag.ErrorMessage;
-                //ViewBag.ErrMessage = "There are error(s) in your input";
+                ViewBag.ErrMessage = "There are error(s) in your input";
                 hasErrors = true;
             }
             if (!this.IsCaptchaValid("Validate your captcha"))
