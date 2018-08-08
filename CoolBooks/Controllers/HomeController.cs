@@ -39,7 +39,26 @@ namespace CoolBooks.Controllers
             string userName = Request.Form["UserName"]; // TODO: Seee above and in cshtml
             string password = Request.Form["Password"];
             string passwordHash = AspNetUsersController.GetPasswordHash(password);
+            AspNetUsers userInfo = null;
 
+            int count = (from i in db.AspNetUsers
+                         where (i.UserName == userName)
+                         select i).Count();
+            if (0 == count)
+            {
+                ViewBag.ErrMessage = "User name does not exist";
+                hasErrors = true;
+            } else
+            {
+                userInfo = (from user in db.AspNetUsers
+                                        where user.UserName == userName
+                                        select user).First<AspNetUsers>();
+                if (userInfo.PasswordHash != passwordHash)
+                {
+                    ViewBag.ErrMessage = "Password is incorrect";
+                    hasErrors = true;
+                }
+            }
             if (password.Trim() == "")
             {
                 ViewBag.ErrMessage = "Password must be filled in";
@@ -48,22 +67,6 @@ namespace CoolBooks.Controllers
             if (userName.Trim() == "")
             {
                 ViewBag.ErrMessage = "User name must be filled in";
-                hasErrors = true;
-            }
-            int count = (from i in db.AspNetUsers
-                         where (i.UserName == userName)
-                         select i).Count();
-            if (0 == count)
-            {
-                ViewBag.ErrMessage = "User name does not exist";
-                hasErrors = true;
-            }
-            AspNetUsers userInfo = (from user in db.AspNetUsers
-                                    where user.UserName == userName
-                                    select user).First<AspNetUsers>();
-            if (userInfo.PasswordHash != passwordHash)
-            {
-                ViewBag.ErrMessage = "Password is incorrect";
                 hasErrors = true;
             }
             if (hasErrors)
