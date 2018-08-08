@@ -36,33 +36,35 @@
 
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.ActionLink(item.Title, "Details","Books", new { Id = item.Id }, null /* html attributes */)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Title, "Details", "Books",  new { Id = item.Id }, null /* html attributes */)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
 
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ISBN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Part)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                <img src="@Url.Content(item.ImagePath)" alt="Image" width="60" height="70" />
-            </td>
-        </tr>
+                    @*@Html.DisplayFor(modelItem => item.LastName)*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ISBN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Part)
+                </td>
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <img src="@Url.Content(item.ImagePath)" alt="Image" width="60" height="70" />
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+
 
 
