@@ -85,7 +85,54 @@ namespace CoolBooks.Controllers
                 books.GenreId = 1;
                 string s = Request.Form["n1"];
 
-                if(s.Equals("Create"))
+
+                if (s.Equals("autofill"))
+                {
+                    int counter = 0;
+                    string line;
+
+                    // Read the file and display it line by line.  
+                    System.IO.StreamReader file =
+                        new System.IO.StreamReader(@"c:\isbnstuff3.txt");
+                    while ((line = file.ReadLine()) != null)
+                    {
+                        try
+                        {
+
+
+                            Item item = GoogleBooksAPI.SearchBook(line); ;
+                            books.UserId = "772509fa-cfff-4a68-a573-a62d9c9a0bb6";
+                            books.AuthorId = GetAuthorByName(item.VolumeInfo.Authors[0]);
+                            books.Created = DateTime.Now;
+                            books.GenreId = GetGenreByName(item.VolumeInfo.Categories[0]);
+                            books.IsDeleted = false;
+                            books.Title = item.VolumeInfo.Title;
+                            books.ISBN = line;
+                            books.Description = item.VolumeInfo.Description;
+                            books.ImagePath = item.VolumeInfo.ImageLinks.Thumbnail;
+                            // books.PublishDate = item.VolumeInfo.PublishedDate;
+
+                            db.Books.Add(books);
+                            db.SaveChanges();
+                        }
+
+
+                        catch
+                        {
+                            int a = 1;
+                        }
+                        counter++;
+                    }
+
+                    file.Close();
+
+                }
+
+
+
+
+
+                if (s.Equals("Create"))
                 {
                 books.Created = DateTime.Now;
                 books.IsDeleted = false;
@@ -151,17 +198,81 @@ namespace CoolBooks.Controllers
 
         }
 
+        /*
+        // POST: Books/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult autofill([Bind(Include = "Id,UserId,AuthorId,GenreId,Title,AlternativeTitle,Part,Description,ISBN,PublishDate,ImagePath,Created,IsDeleted")] Books books)
+        {
+            if (ModelState.IsValid)
+            {
+                string s = Request.Form["n2"];
+
+                if (s.Equals("autofill"))
+                {
+                    int counter = 0;
+                    string line;
+
+                    // Read the file and display it line by line.  
+                    System.IO.StreamReader file =
+                        new System.IO.StreamReader(@"c:\isbnstuff3.txt");
+                    while ((line = file.ReadLine()) != null)
+                    {
+                        try
+                        {
+
+
+                            Item item = GoogleBooksAPI.SearchBook(line); ;
+                            books.UserId = "772509fa-cfff-4a68-a573-a62d9c9a0bb6";
+                            books.AuthorId = GetAuthorByName(item.VolumeInfo.Authors[0]);
+                            books.Created = DateTime.Now;
+                            books.GenreId = GetGenreByName(item.VolumeInfo.Categories[0]);
+                            books.IsDeleted = false;
+                            books.Title = item.VolumeInfo.Title;
+                            books.ISBN = line;
+                            books.Description = item.VolumeInfo.Description;
+                            books.ImagePath = item.VolumeInfo.ImageLinks.Thumbnail;
+                            // books.PublishDate = item.VolumeInfo.PublishedDate;
+
+                            db.Books.Add(books);
+                            db.SaveChanges();
+                        }
+
+
+                        catch
+                        {
+                            int a = 1;
+                        }
+                        counter++;
+                    }
+
+                    file.Close();
+
+                }
+
+                return Index();
+
+
+            }
+            return Index();
+        }
+
+            */
+
+
         //[HttpPost]
         //public void autofill([Bind(Include = "ISBN")] Books books)
         //{
-           
+
         //        GoogleBooksAPI.SearchBook(books.ISBN);
         //        books.GenreId = 1;
         //        books.Created = DateTime.Now;
         //        books.IsDeleted = false;
 
-           
-          
+
+
 
         //}
 

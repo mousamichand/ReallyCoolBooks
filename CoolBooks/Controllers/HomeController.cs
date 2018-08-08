@@ -32,6 +32,13 @@ namespace CoolBooks.Controllers
         public ActionResult Index()
         {
             var books = db.Books.Include(b => b.AspNetUsers).Include(b => b.Authors).Include(b => b.Genres);
+            
+
+
+
+            ViewData["Books"] = db.Books.Find(73);
+
+
             return View(books.ToList());
         }
 

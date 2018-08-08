@@ -29,8 +29,14 @@ namespace CoolBooks.Models
         [JsonProperty("title")]
         public string Title { get; set; }
         public string AlternativeTitle { get; set; }
+        [Range(1, 10)]
+       
         public Nullable<short> Part { get; set; }
+        //[Required(ErrorMessage = "Description  is Required")]
+        //[StringLength(4000)]
+
         public string Description { get; set; }
+        //[StringLength(40)]
         public string ISBN { get; set; }
         public Nullable<System.DateTime> PublishDate { get; set; }
         [DataType(DataType.Upload)]

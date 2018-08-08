@@ -11,13 +11,16 @@ namespace CoolBooks.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Reviews
     {
         public int Id { get; set; }
         public int BookId { get; set; }
         public string UserId { get; set; }
+        [Required(ErrorMessage = "Review Title  is Required")]
         public string Title { get; set; }
+        [Required(ErrorMessage = "Review Description  is Required")]
         public string Text { get; set; }
         public Nullable<byte> Rating { get; set; }
         public System.DateTime Created { get; set; }
