@@ -64,13 +64,22 @@ namespace CoolBooks.Controllers
             
         }
 
-        // GET: Books/Create
+        // GET: Books/Create ****
         public ActionResult Create()
         {
-            ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email");
-            ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName");
-            ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name");
-            return View();
+            if (Session["UserInfo"] != null) // If registered
+            {
+                ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email");
+                ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName");
+                ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name");
+                return View();
+            }
+
+            else // Else return to index page
+            {
+                return Redirect("../Books/Index");
+            }
+            
         }
 
         // POST: Books/Create
@@ -377,7 +386,7 @@ else
 
         //}
 
-        // GET: Books/Edit/5
+        // GET: Books/Edit/5 ****
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -389,10 +398,17 @@ else
             {
                 return HttpNotFound();
             }
-            ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", books.UserId);
-            ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName", books.AuthorId);
-            ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", books.GenreId);
-            return View(books);
+          
+            if ((string)Session["UserId"] == books.UserId)
+            {
+                ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", books.UserId);
+                ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName", books.AuthorId);
+                ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", books.GenreId);
+                return View(books);
+            }
+
+            else
+                return Redirect("../Books/Index");
         }
 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -415,7 +431,7 @@ else
 
 
 
-        // GET: Books/Delete/5
+        // GET: Books/Delete/5 *****
         public ActionResult Delete(int? id)
         {
             if (id == null)
