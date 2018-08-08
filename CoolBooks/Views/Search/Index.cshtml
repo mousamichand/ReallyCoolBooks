@@ -8,19 +8,18 @@
 
 
 
-<ul class="nav nav-tabs">
+<ul class="tab-content">
     <li><a data-toggle="tab" href="#firstTab">View All</a></li>
-    </ul>
+</ul>
 <div class="tab-content">
     <div id="firstTab" class="tab-pane fade in active">@Html.Action("ViewAll")</div>
-    </div>
+</div>
 
 <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
 @section scripts{
     @Scripts.Render("~/bundles/jqueryval")
 
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-
 
     <script>
         function activatejQueryTable() {
@@ -33,6 +32,31 @@
 
     </script>
 }
+
+@*<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" src="https://raw.githubusercontent.com/viralpatel/jquery.shorten/master/src/jquery.shorten.js"></script>
+<script>
+    $(function () {
+
+        //$(".text").shorten({
+        //    "showChars": 200
+        //});
+
+        //// OR
+        //$(".text").shorten({
+        //    "showChars": 150,
+        //    "moreText": "See More",
+        //});
+
+        //// OR
+        $(".Description").shorten({
+            "showChars": 50,
+            "moreText": "See More",
+            "lessText": "Less",
+        });
+
+    });
+</script>*@
 
 
 
