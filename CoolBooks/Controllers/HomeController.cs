@@ -83,7 +83,8 @@ namespace CoolBooks.Controllers
             {
                 return View();
             } else {
-                Session["UserInfo"] = userInfo; 
+                Session["UserInfo"] = userInfo;
+                Session["UserName"] = userInfo.UserName;
                 return RedirectToAction("../Home");
             }
         }
