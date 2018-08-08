@@ -25,7 +25,12 @@ namespace CoolBooks.Controllers
         // GET: Books
         public ActionResult Index()
         {
-            var books = db.Books.Include(b => b.AspNetUsers).Include(b => b.Authors).Include(b => b.Genres);
+            // var books = db.Books.Include(b => b.AspNetUsers).Include(b => b.Authors).Include(b => b.Genres);
+            string sessionId = ((AspNetUsers)Session["UserInfo"]).Id;
+            var books = 
+                from c in db.Books
+                where (c.UserId == sessionId)
+                select c;
             return View(books.ToList());
         }
 
@@ -163,6 +168,7 @@ namespace CoolBooks.Controllers
 
                 if (s.Equals("Create"))
                 {
+                    books.UserId = ((AspNetUsers)Session["UserInfo"]).Id;   
                 books.Created = DateTime.Now;
                 books.IsDeleted = false;
                 db.Books.Add(books);
@@ -206,18 +212,8 @@ namespace CoolBooks.Controllers
                     //return View(book);
 
 
-                    Books objbook = new Books
-                    {
-                        Id = 1,
-                        AuthorId = 1,
-                        UserId = "mchand",
-                        ISBN = "1238",
-                        Title = "Priti kumari",
-                        Created = DateTime.Now
 
-                    };
-
-                    return View("create", objbook);
+                    return View();
                 }
                 
             }
@@ -419,16 +415,16 @@ else
                 return HttpNotFound();
             }
           
-            if ((string)Session["UserId"] == books.UserId)
-            {
+            //if ((string)Session["UserId"] == books.UserId)
+            //{
                 ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", books.UserId);
                 ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName", books.AuthorId);
                 ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", books.GenreId);
                 return View(books);
-            }
+            //}
 
-            else
-                return Redirect("../Books/Index");
+            //else
+            //    return Redirect("Index");
         }
 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
