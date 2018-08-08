@@ -62,7 +62,9 @@
             }
             <br />
             <br />
-            @foreach (var item in Model)
+    @if (Model != null)
+    {
+            foreach (var item in Model)
             {
 
                 <div class="col-sm-4">
@@ -83,7 +85,7 @@
                 counter++;
 
             }
-
+    }
         </div>
 
 </body>
