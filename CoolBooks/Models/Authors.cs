@@ -23,6 +23,7 @@ namespace CoolBooks.Models
     
         public int Id { get; set; }
         [Required(ErrorMessage = "First Name  is Required")]
+        [Display(Name="Author")]
         public string FirstName { get; set; }
         [Required(ErrorMessage = "Last Name  is Required")]
         public string LastName { get; set; }

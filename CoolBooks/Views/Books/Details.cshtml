@@ -1,10 +1,11 @@
 ﻿@using CoolBooks.Models
 @{
-    
+
 
     Books bk = ViewData["Books"] as Books;
-   
+
     IEnumerable<Reviews> rev = ViewData["Reviews"] as IEnumerable<Reviews>;
+    var Uid = ((AspNetUsers)Session["UserInfo"]).Id;
 }
 
 
@@ -36,7 +37,7 @@
 </head>
 <body>
     <div>
-        <h4>Books</h4>
+
         <hr />
         @using (Html.BeginForm())
     {
@@ -86,29 +87,32 @@
 
                         @foreach (var reviews in rev)
                     {
+
                         <tr>  <td colspan="2"><B>@reviews.UserId</B></td> </tr>
                         <tr>
                             <td colspan="2">
                                 @reviews.Title  @reviews.Created
 
-                                @for (int i = 1; i < reviews.Rating; i++)
+                                @for (int i = 1; i <= reviews.Rating; i++)
                             {
-                                <img src="~/Images/star-fill-lg.png" height="20" />
+                                <img src="~/Images/star-fill-lg.png" height="30" />
                         }
                             </td>
                         </tr>
 
                         <tr>
                             <td>@reviews.Text </td>
-
-                            <td> @Html.ActionLink("Delete", "Delete", new { id = string.Empty }, new { @class = "btn btn-primary " })</td>
+                            @if(@Uid == @reviews.UserId)
+                           {
+                        <td> <input type="submit" name="n1" value=@reviews.Id formaction=@Url.Action("Delete","Reviews") formmethod="post" class="btn btn-primary" /><img src="" alt="Delete" /></td>
+                           }
                         </tr>
 
 
                 }
-                        @if (Session["UserInfo"] != null)
+                        @if(Session["UserInfo"] != null)
                     {
-                        <tr><td colspan="2"><B>USERNAME</B></td></tr>
+
                         <tr><td colspan="2"><b>Review Title</b> </td></tr>
                         <tr><td colspan="2"> @Html.TextBox("RevTitle") </td></tr>
 
@@ -116,13 +120,8 @@
 
                             <td>
 
-                                <span id="text-counter"> 4000 </span> character(s) left.
+                                <b>   <span id="text-counter"> 4000 </span> character(s) left.</b>
                                 @Html.TextArea("Comments", htmlAttributes: new { rows = "5", cols = "100", @class = "form-control", maxlength = "4000" })
-                                @*   @Html.TextArea("Review", new { maxlength = 500, style = "width:100%; height:100px;" }) </ td > *@
-
-                                <br />
-
-                                <br />
 
 
                             <td>
@@ -133,6 +132,9 @@
                             </td>
 
                         </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                        </tr>
                 }
                     </table>
 
@@ -142,10 +144,6 @@
 
 
         </table>
-
-
-         if (Session["UserInfo"] != null)
-       {
         <div class="stars">
             <input type="radio" name="star" class="star-1" id="star-1" value="1" />
             <label class="star-1" for="star-1">1</label>
@@ -160,6 +158,8 @@
             <span></span>
         </div>
 }
+
+
 }
     </div>
 

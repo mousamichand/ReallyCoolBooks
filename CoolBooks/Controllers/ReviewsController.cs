@@ -9,7 +9,6 @@ namespace CoolBooks.Controllers
 {
     public class ReviewsController : Controller
     {
-
         private CoolBooksEntities db = new CoolBooksEntities();
         // GET: Reviews
         public ActionResult Index()
@@ -31,26 +30,14 @@ namespace CoolBooks.Controllers
 
         // POST: Reviews/Create
         [HttpPost]
+       
         public ActionResult Create(FormCollection collection)
         {
             try
             {
+                // TODO: Add insert logic here
 
-                if (Session["UserInfo"] != null) // If registered
-                {
-                    Reviews rev = new Reviews();
-                    rev.UserId = "mchand";
-                    rev.Text = collection["resume"];
-                    db.Reviews.Add(rev);
-                }
-
-                else
-                {
-                    return RedirectToAction("Home", "Noaccess"); // **** ;
-                    //return RedirectToAction("Noaccess", "Home"); // **** ;
-                }
-
-                return RedirectToAction("Books","Index"); // **** ;
+                return RedirectToAction("Index");
             }
             catch
             {
@@ -81,24 +68,38 @@ namespace CoolBooks.Controllers
         }
 
         // GET: Reviews/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
-            return View();
+           // string Rid = id;
+            Reviews reviews = db.Reviews.Find(id);
+            db.Reviews.Remove(reviews);
+            db.SaveChanges();
+            //  return RedirectToAction("Index");
+
+            return RedirectToAction("Details", "Books", new { id =5});
+
         }
 
         // POST: Reviews/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete( FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
+                // TODO: Add delete logic 
+               int Rid = Int32.Parse(collection["n1"]);
+             
+                Reviews reviews = db.Reviews.Find(Rid);
+                db.Reviews.Remove(reviews);
+                db.SaveChanges();
+              //  return RedirectToAction("Index");
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Books", new { id = collection["TxtBookId"] });
             }
             catch
             {
-                return View();
+                return RedirectToAction("Details", "Books", new { id = collection["TxtBookId"] });
             }
         }
     }

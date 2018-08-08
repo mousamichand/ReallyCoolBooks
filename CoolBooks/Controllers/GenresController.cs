@@ -50,7 +50,8 @@ namespace CoolBooks.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+                genres.Created = DateTime.Now;
+                genres.IsDeleted = false;
                 db.Genres.Add(genres);
                 db.SaveChanges();
                 return RedirectToAction("Index");

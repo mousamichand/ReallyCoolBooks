@@ -48,15 +48,14 @@ namespace CoolBooks.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "FirstName,Description")] Authors authors)
         {
-            Authors model = db.Authors.Create();
-            model.FirstName = Request.Form["FirstName"];
-            model.Description = Request.Form["Description"];
-            model.LastName = "poop";
-            model.Created = DateTime.Now;
-            model.IsDeleted = false;
+
+
+            authors.LastName = "";
+            authors.Created = DateTime.Now;
+            authors.IsDeleted = false;
 
             
-            db.Authors.Add(model);
+            db.Authors.Add(authors);
             db.SaveChanges();
             return RedirectToAction("Index");
             
