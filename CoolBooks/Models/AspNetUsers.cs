@@ -23,7 +23,7 @@ namespace CoolBooks.Models
             this.Reviews = new HashSet<Reviews>();
             this.AspNetRoles = new HashSet<AspNetRoles>();
         }
-    
+
         public string Id { get; set; }
         public string Email { get; set; }
         public bool EmailConfirmed { get; set; }
