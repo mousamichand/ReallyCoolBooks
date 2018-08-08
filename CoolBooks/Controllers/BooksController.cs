@@ -64,14 +64,24 @@ namespace CoolBooks.Controllers
             
         }
 
-        // GET: Books/Create
+        // GET: Books/Create ****
         public ActionResult Create()
         {
-            ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email");
+            ViewBag.UserId = Session["username"];
+
+
             ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName");
             ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name");
             return View();
         }
+        /*
+            else // Else return to index page
+            {
+                return Redirect("../Books/Index");
+            }
+            
+        }
+        */
 
         // POST: Books/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -80,33 +90,9 @@ namespace CoolBooks.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,UserId,AuthorId,GenreId,Title,AlternativeTitle,Part,Description,ISBN,PublishDate,ImagePath,Created,IsDeleted")] Books books)
         {
-            string s1 = Request.Form["n1"];
-            if (s1.Equals("Save"))
-            {
-                Reviews rev = new Reviews();
-                rev.UserId = "mchand";
-                rev.BookId = 21;
-                rev.Text = Request.Form["Comments"];
-                rev.Rating = Byte.Parse(Request.Form["star"]);
-                //  string star2 = Request.Form["star-2"];
-                //string star3 = Request.Form["star-3"];
-                //string star4 = Request.Form["star-4"];
-                //string star5 = RequesForm["star-5"];
-                rev.Created = DateTime.Now;
-                rev.Title = Request.Form["RevTitle"];
-
-                db.Reviews.Add(rev);
-                db.SaveChanges();
-                ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", books.UserId);
-                ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName", books.AuthorId);
-                ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", books.GenreId);
-
-                return RedirectToAction("Details", new { id = rev.BookId });
-
-            }
             if (ModelState.IsValid)
             {
-                books.GenreId = 1;
+               // books.GenreId = 1;
                 string s = Request.Form["n1"];
 
 
@@ -125,7 +111,7 @@ namespace CoolBooks.Controllers
 
 
                             Item item = GoogleBooksAPI.SearchBook(line); ;
-                            books.UserId = "772509fa-cfff-4a68-a573-a62d9c9a0bb6";
+                            books.UserId = "c2d8fc5a-9218-42be-ba0e-2dcef8621649";
                             books.AuthorId = GetAuthorByName(item.VolumeInfo.Authors[0]);
                             books.Created = DateTime.Now;
                             books.GenreId = GetGenreByName(item.VolumeInfo.Categories[0]);
@@ -180,10 +166,6 @@ namespace CoolBooks.Controllers
 
                     db.Reviews.Add(rev);
                     db.SaveChanges();
-                    ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", books.UserId);
-                    ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName", books.AuthorId);
-                    ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", books.GenreId);
-
                     return RedirectToAction("Details", new { id = rev.BookId });
 
                 }
@@ -405,7 +387,7 @@ else
 
         //}
 
-        // GET: Books/Edit/5
+        // GET: Books/Edit/5 ****
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -417,10 +399,17 @@ else
             {
                 return HttpNotFound();
             }
-            ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", books.UserId);
-            ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName", books.AuthorId);
-            ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", books.GenreId);
-            return View(books);
+          
+            if ((string)Session["UserId"] == books.UserId)
+            {
+                ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", books.UserId);
+                ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName", books.AuthorId);
+                ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", books.GenreId);
+                return View(books);
+            }
+
+            else
+                return Redirect("../Books/Index");
         }
 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -443,7 +432,7 @@ else
 
 
 
-        // GET: Books/Delete/5
+        // GET: Books/Delete/5 *****
         public ActionResult Delete(int? id)
         {
             if (id == null)
