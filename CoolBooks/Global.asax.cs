@@ -17,12 +17,10 @@ namespace CoolBooks
     {
         protected void Application_Start()
         {
-            GoogleBooksAPI.SearchBook("9780547928197");
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
         }
     }
 }
