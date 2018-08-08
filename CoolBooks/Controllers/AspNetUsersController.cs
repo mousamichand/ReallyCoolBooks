@@ -80,22 +80,22 @@ namespace CoolBooks.Controllers
             }
             if (!this.IsCaptchaValid("Validate your captcha"))
             {
-                ViewBag.ErrMessage = "Your captcha answer is incorrect";
+                ViewBag.ErrMessage = "Your captcha answer is incorrect.";
                 hasErrors = true;
             }
             if (password != password2)
             {
-                ViewBag.ErrMessage = "Passwords don't match";
+                ViewBag.ErrMessage = "Passwords don't match.";
                 hasErrors = true;
             }
             if (password.Trim() == "")
             {
-                ViewBag.ErrMessage = "Password must be filled in";
+                ViewBag.ErrMessage = "Password must be filled in.";
                 hasErrors = true;
             }
             if (aspNetUsers.UserName.Trim() == "")
             {
-                ViewBag.ErrMessage = "Username must be filled in";
+                ViewBag.ErrMessage = "Username must be filled in.";
                 hasErrors = true;
             }
             int count = (from i in db.AspNetUsers
@@ -103,7 +103,7 @@ namespace CoolBooks.Controllers
                          select i).Count();
             if (0 < count)
             {
-                ViewBag.ErrMessage = "User name already exists";
+                ViewBag.ErrMessage = "User name already exists.";
                 hasErrors = true;
             }
             if (!ModelState.IsValid)

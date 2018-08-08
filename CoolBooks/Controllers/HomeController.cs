@@ -36,7 +36,7 @@ namespace CoolBooks.Controllers
 
 
 
-            ViewData["Books"] = db.Books.Find(73);
+           ViewData["Books"] = db.Books.Find(73);
 
 
             return View(books.ToList());
@@ -63,7 +63,7 @@ namespace CoolBooks.Controllers
                          select i).Count();
             if (0 == count)
             {
-                ViewBag.ErrMessage = "User name does not exist";
+                ViewBag.ErrMessage = "User name does not exist.";
                 hasErrors = true;
             } else
             {
@@ -72,18 +72,18 @@ namespace CoolBooks.Controllers
                                         select user).First<AspNetUsers>();
                 if (userInfo.PasswordHash != passwordHash)
                 {
-                    ViewBag.ErrMessage = "Password is incorrect";
+                    ViewBag.ErrMessage = "Password is incorrect.";
                     hasErrors = true;
                 }
             }
             if (password.Trim() == "")
             {
-                ViewBag.ErrMessage = "Password must be filled in";
+                ViewBag.ErrMessage = "Password must be filled in.";
                 hasErrors = true;
             }
             if (userName.Trim() == "")
             {
-                ViewBag.ErrMessage = "User name must be filled in";
+                ViewBag.ErrMessage = "User name must be filled in.";
                 hasErrors = true;
             }
             if (hasErrors)
