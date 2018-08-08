@@ -20,6 +20,7 @@
         <p><a href="https://en.wikipedia.org/wiki/Book" target="_blank" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
     </div>
 
+    @if(bk != null){
     <table class="table table-striped" border="0">
         <tr rowspan="2">
             <td>
@@ -53,7 +54,7 @@
 
         </tr>
         </table>
-
+    }
 
         <div class="row">
             @{
@@ -61,7 +62,9 @@
             }
             <br />
             <br />
-            @foreach (var item in Model)
+    @if (Model != null)
+    {
+            foreach (var item in Model)
             {
 
                 <div class="col-sm-4">
@@ -82,7 +85,7 @@
                 counter++;
 
             }
-
+    }
         </div>
 
 </body>
