@@ -32,13 +32,20 @@ namespace CoolBooks.Controllers
         public ActionResult Index()
         {
             var books = db.Books.Include(b => b.AspNetUsers).Include(b => b.Authors).Include(b => b.Genres);
-            
 
-
-
-            ViewData["Books"] = db.Books.Find(73);
-
-
+            List<int> ids = (from id in db.Books
+                         select id.Id).ToList<int>();
+            if (ids.Count > 0)
+            {
+                Random random = new Random();
+                int i = random.Next(0, ids.Count);
+                ViewData["Books"] = db.Books.Find(ids[i]);
+            }
+            else
+            {
+                ViewData["Books"] = null;
+                return View();
+            }
             return View(books.ToList());
         }
 
@@ -63,7 +70,7 @@ namespace CoolBooks.Controllers
                          select i).Count();
             if (0 == count)
             {
-                ViewBag.ErrMessage = "User name does not exist";
+                ViewBag.ErrMessage = "User name does not exist.";
                 hasErrors = true;
             } else
             {
@@ -72,18 +79,18 @@ namespace CoolBooks.Controllers
                                         select user).First<AspNetUsers>();
                 if (userInfo.PasswordHash != passwordHash)
                 {
-                    ViewBag.ErrMessage = "Password is incorrect";
+                    ViewBag.ErrMessage = "Password is incorrect.";
                     hasErrors = true;
                 }
             }
             if (password.Trim() == "")
             {
-                ViewBag.ErrMessage = "Password must be filled in";
+                ViewBag.ErrMessage = "Password must be filled in.";
                 hasErrors = true;
             }
             if (userName.Trim() == "")
             {
-                ViewBag.ErrMessage = "User name must be filled in";
+                ViewBag.ErrMessage = "User name must be filled in.";
                 hasErrors = true;
             }
             if (hasErrors)
@@ -98,7 +105,7 @@ namespace CoolBooks.Controllers
 
         public ActionResult LogOut()
         {
-            Session.Remove("UserInfo");
+            Session.Clear();
             return RedirectToAction("../Home");
         }
 
