@@ -301,21 +301,21 @@ namespace CoolBooks.Controllers
 
         public int GetAuthorByName(string name)
         {
-            name = name.Trim();
-            string[] names = name.Split();
-            string lastName = names.Last<string>();
-            string fstName = "";
-            for(int i = 0; i < names.Length-1; ++i)
-                fstName += names[i] + " ";
-            fstName = fstName.Trim();
+         //   name = name.Trim();
+           // string[] names = name.Split();
+            //string lastName = names.Last<string>();
+            string fstName = name;
+           // for(int i = 0; i < names.Length-1; ++i)
+            //    fstName += names[i] + " ";
+            //fstName = fstName.Trim();
             List<Authors> authors = db.Authors.ToList<Authors>();
             foreach (Authors author in authors)
-                if ((author.FirstName.ToLower() == fstName.ToLower()) 
-                    && (author.LastName.ToLower() == lastName.ToLower()))
+                if ((author.FirstName.ToLower() == fstName.ToLower()))
+                    
                     return author.Id;
             Authors model = db.Authors.Create();
             model.FirstName = fstName;
-            model.LastName = lastName;
+            model.LastName = "";
             model.Created = DateTime.Now;
             model.IsDeleted = false;
             db.Authors.Add(model);
