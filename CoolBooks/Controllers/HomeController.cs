@@ -19,6 +19,16 @@ namespace CoolBooks.Controllers
     {
         private CoolBooksEntities db = new CoolBooksEntities();
 
+        public int IsRegistered()
+        {
+            if (Session["UserInfo"] == null)
+            {
+                return 0;
+            }
+
+            else return 1;
+        }
+
         public ActionResult Index()
         {
             var books = db.Books.Include(b => b.AspNetUsers).Include(b => b.Authors).Include(b => b.Genres);
