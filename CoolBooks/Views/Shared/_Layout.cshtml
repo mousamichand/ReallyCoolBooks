@@ -35,7 +35,7 @@
                     <li>@Html.ActionLink("Genres", "Create", "Genres")</li>
                     @if (@Session["UserInfo"] != null)
     {
-                    <li>@Html.ActionLink("Welcome " + @Session["UserName"], null,null, new { @class = "btn btn-primary " })</li>
+                    <li> @Session["UserName"])</li>
                 
 }
                     <li>@Html.ActionLink("Search", "Index", "Search")</li>
