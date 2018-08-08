@@ -39,18 +39,18 @@ namespace CoolBooks.Controllers
             return View(aspNetUsers);
         }
 
-        // GET: AspNetUsers/Signup
-        public ActionResult SignUp()
-        {
-            return View();
-        }
-
         public static string GetPasswordHash(string password)
         {
             byte[] data = Encoding.UTF8.GetBytes(password);
             SHA512 sha = new SHA512Managed();
             data = sha.ComputeHash(data);
             return Encoding.UTF8.GetString(data);
+        }
+
+        // GET: AspNetUsers/Signup
+        public ActionResult SignUp()
+        {
+            return View();
         }
 
         [HttpPost]
@@ -74,7 +74,8 @@ namespace CoolBooks.Controllers
 
             if (!ModelState.IsValid)
             {
-                ViewBag.ErrMessage = "There are error(s) in your input";
+                ViewBag.ErrMessage = ViewBag.ErrorMessage;
+                //ViewBag.ErrMessage = "There are error(s) in your input";
                 hasErrors = true;
             }
             if (!this.IsCaptchaValid("Validate your captcha"))
@@ -94,7 +95,7 @@ namespace CoolBooks.Controllers
             }
             if (aspNetUsers.UserName.Trim() == "")
             {
-                ViewBag.ErrMessage = "Password must be filled in";
+                ViewBag.ErrMessage = "Username must be filled in";
                 hasErrors = true;
             }
             int count = (from i in db.AspNetUsers
@@ -103,6 +104,12 @@ namespace CoolBooks.Controllers
             if (0 < count)
             {
                 ViewBag.ErrMessage = "User name already exists";
+                hasErrors = true;
+            }
+            if (!ModelState.IsValid)
+            {
+                ViewBag.ErrMessage = ViewBag.ErrorMessage;
+                //ViewBag.ErrMessage = "There are error(s) in your input";
                 hasErrors = true;
             }
 
@@ -123,6 +130,7 @@ namespace CoolBooks.Controllers
                 aspNetUsers.AccessFailedCount = 0;
                 db.AspNetUsers.Add(aspNetUsers);
                 db.SaveChanges();
+                Session["UserInfo"] = aspNetUsers;
                 return RedirectToAction("../Users/Profile");
             }
         }
