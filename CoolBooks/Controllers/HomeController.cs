@@ -70,7 +70,8 @@ namespace CoolBooks.Controllers
             {
                 return View();
             } else {
-                Session["UserInfo"] = userInfo; 
+                //  Session["UserInfo"] = userInfo; 
+                Session["UserInfo"] = userInfo.Id;
                 return RedirectToAction("../Home");
             }
         }
