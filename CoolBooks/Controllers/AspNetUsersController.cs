@@ -101,9 +101,7 @@ namespace CoolBooks.Controllers
             }
 
             if (hasErrors)
-            {
                 return View();
-            } 
             else
             {
                 aspNetUsers.Id = Guid.NewGuid().ToString();
