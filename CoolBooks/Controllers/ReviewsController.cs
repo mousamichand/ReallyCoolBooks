@@ -85,7 +85,7 @@ namespace CoolBooks.Controllers
         [HttpPost]
         public ActionResult Delete( FormCollection collection)
         {
-            try
+            //try
             {
                 // TODO: Add delete logic 
                int Rid = Int32.Parse(collection["n1"]);
@@ -96,10 +96,10 @@ namespace CoolBooks.Controllers
               //  return RedirectToAction("Index");
 
                 return RedirectToAction("Details", "Books", new { id = collection["TxtBookId"] });
-            }
-            catch
-            {
-                return RedirectToAction("Details", "Books", new { id = collection["TxtBookId"] });
+            //}
+            //catch
+            //{
+              //  return RedirectToAction("Details", "Books", new { id = collection["TxtBookId"] });
             }
         }
     }
