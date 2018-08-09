@@ -106,7 +106,7 @@
                            {
                             <td>
                                 @*<input type="submit" id="n1" name=@reviews.Id value="Delete" formaction=@Url.Action("Delete","Reviews") formmethod="post" class="btn btn-primary" /><img src="" alt="Delete" /></td>*@
-                                <input type="hidden" name="n1" value="@reviews.Id" formaction=@Url.Action("Delete","Reviews") formmethod="post" class="btn btn-primary"/>
+                                <input type="hidden" name="n1" value=@reviews.Id formaction=@Url.Action("Delete","Reviews") formmethod="post" class="btn btn-primary"/>
                                 <input type="submit" value="Delete" formaction=@Url.Action("Delete","Reviews") formmethod="post" class="btn btn-primary"/>
                                 </td>
                                 }
@@ -130,7 +130,7 @@
 
                             <td>
 
-                                <input type="submit" name="n1" value="Save" formaction=@Url.Action("Create") formmethod="post" class="btn btn-primary" />
+                                <input type="submit" name="n2" value="Save" formaction=@Url.Action("Create") formmethod="post" class="btn btn-primary" />
 
 
                             </td>
