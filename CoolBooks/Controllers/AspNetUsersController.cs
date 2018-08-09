@@ -116,7 +116,7 @@ namespace CoolBooks.Controllers
                 aspNetUsers.LockoutEndDateUtc = null;
                 aspNetUsers.LockoutEnabled = false;
                 aspNetUsers.AccessFailedCount = 0;
-                aspNetUsers.AspNetRoles.Add(db.AspNetRoles.Find(2));
+                aspNetUsers.AspNetRoles.Add(db.AspNetRoles.Find("2"));
                 db.AspNetUsers.Add(aspNetUsers);
 
                 Users users = new Users();
@@ -130,6 +130,7 @@ namespace CoolBooks.Controllers
 
                 db.SaveChanges();
                 Session["UserInfo"] = aspNetUsers;
+                Session["UserName"] = aspNetUsers.UserName;
 
                 return RedirectToAction("../Users/Profile");
             }
