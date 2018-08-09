@@ -44,8 +44,6 @@ namespace CoolBooks.Controllers
             return View();
         }
 
-
-
         // POST: Users/Profile
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -60,9 +58,6 @@ namespace CoolBooks.Controllers
                 ViewBag.ErrMessage = "There are error(s) in your input";
                 hasErrors = true;
             }
-
-
-
             if (hasErrors)
             {
                 return View();
@@ -77,10 +72,6 @@ namespace CoolBooks.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-
-
-
         }
 
         // GET: Users/Edit/5
@@ -105,14 +96,7 @@ namespace CoolBooks.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "UserId,FirstName,LastName,Gender,Birthdate,Picture,Phone,Address,ZipCode,City,Country,Email,Info,Created,IsDeleted")] Users users)
-        {
-
-
-
-            
-            
-
-
+        { 
             if (ModelState.IsValid)
             {
                 db.Entry(users).State = EntityState.Modified;
