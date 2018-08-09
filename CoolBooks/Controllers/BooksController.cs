@@ -115,7 +115,7 @@ namespace CoolBooks.Controllers
             ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName", books.AuthorId);
             ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", books.GenreId);
 
-            string s1 = Request.Form["n2"];
+            string s1 = Request.Form["n1"];
             
                 if (s1.Equals("Save"))
                 {
@@ -147,7 +147,7 @@ namespace CoolBooks.Controllers
                     int counter = 0;
                     string line;
 
-                    // Read the file and display it line by line.  
+                //     Read the file and display it line by line.  
                     System.IO.StreamReader file =
                         new System.IO.StreamReader(@"c:\isbnstuff3.txt");
                     while ((line = file.ReadLine()) != null)
@@ -156,8 +156,8 @@ namespace CoolBooks.Controllers
                         {
 
 
-                            Item item = GoogleBooksAPI.SearchBook(line); ;
-                            books.UserId = "c2d8fc5a-9218-42be-ba0e-2dcef8621649";
+                            Item item = GoogleBooksAPI.SearchBook(line); 
+                            books.UserId = "04e9d61c-eb4d-4821-9f97-91c3bc31f45a";
                             books.AuthorId = GetAuthorByName(item.VolumeInfo.Authors[0]);
                             books.Created = DateTime.Now;
                             books.GenreId = GetGenreByName(item.VolumeInfo.Categories[0]);
@@ -321,7 +321,7 @@ namespace CoolBooks.Controllers
         {
             Books books = db.Books.Find(id);
 
-            if ((string)Session["UserId"] == books.UserId)
+            if (((AspNetUsers)(Session["UserInfo"])).Id == books.UserId)
             {
                 db.Books.Remove(books);
                 db.SaveChanges();

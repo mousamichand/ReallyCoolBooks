@@ -27,7 +27,7 @@
         @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
     </div>
 </div>
-
+<div class="col-md-offset-2 col-md-10" style="height:20px"> </div>
 <div class="form-group">
     @Html.LabelFor(model => model.PasswordHash, "Password", htmlAttributes: new { @class = "control-label col-md-2" })
     <div class="col-md-10">
@@ -35,9 +35,23 @@
     </div>
 </div>
 
+<div class="col-md-offset-2 col-md-10" style="height:20px"> </div>
+
 <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
         <input type="submit" value="Log in" class="btn btn-primary" />
+    </div>
+</div>
+
+<div class="col-md-offset-2 col-md-10" style="height:20px"> </div>
+
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <a href="Password"
+           target="popup"
+           onclick="window.open('Password','popup','width=600,height=600'); return false;">
+            Forgot your username or password?
+        </a>
     </div>
 </div>
 

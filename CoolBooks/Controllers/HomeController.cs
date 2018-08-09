@@ -29,6 +29,27 @@ namespace CoolBooks.Controllers
             else return 1;
         }
 
+        public static bool IsAdmin(HttpSessionStateBase session)
+        {
+            // if (((AspNetUsers)(Session["UserInfo"]).Id))
+
+            var sessionId = ((AspNetUsers)session["UserInfo"]).AspNetRoles.Contains(db.AspNetRoles.Find("1"));
+
+            if (session["UserInfo"] != null)
+            {
+                if ((AspNetUsers)session["UserInfo"]).AspNetRoles.Contains(db.AspNetRoles.Find("1"))
+                {
+                    return true;
+                }
+
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+
         public ActionResult Index()
         {
             var books = db.Books.Include(b => b.AspNetUsers).Include(b => b.Authors).Include(b => b.Genres);
@@ -51,6 +72,11 @@ namespace CoolBooks.Controllers
 
         // GET: AspNetUsers/LogIn
         public ActionResult LogIn()
+        {
+            return View();
+        }
+
+        public ActionResult Password()
         {
             return View();
         }
@@ -99,6 +125,7 @@ namespace CoolBooks.Controllers
             } else {
                 Session["UserInfo"] = userInfo;
                 Session["UserName"] = userInfo.UserName;
+                Session["UserId"] = userInfo.Id;
                 return RedirectToAction("../Home");
             }
         }

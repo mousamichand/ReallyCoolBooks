@@ -69,6 +69,7 @@ namespace CoolBooks.Controllers
 
         // GET: Reviews/Delete/5
         [HttpGet]
+
         public ActionResult Delete(int id)
         {
            // string Rid = id;
@@ -77,12 +78,13 @@ namespace CoolBooks.Controllers
             db.SaveChanges();
             //  return RedirectToAction("Index");
 
-            return RedirectToAction("Details", "Books", new { id =5});
+            return RedirectToAction("../Books");
 
         }
 
         // POST: Reviews/Delete/5
         [HttpPost]
+
         public ActionResult Delete( FormCollection collection)
         {
             //try

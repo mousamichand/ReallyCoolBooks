@@ -41,10 +41,11 @@ namespace CoolBooks.Controllers
         public ActionResult Profile()
         {
             ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email");
-            return View();
+
+            Users users = db.Users.Find(Session["UserId"]);
+
+            return View(users);
         }
-
-
 
         // POST: Users/Profile
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -53,6 +54,8 @@ namespace CoolBooks.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Profile([Bind(Include = "UserId,FirstName,LastName,Gender,Birthdate,Picture,Phone,Address,ZipCode,City,Country,Email,Info")] Users users)
         {
+            
+
             bool hasErrors = false;
 
             if (!ModelState.IsValid)
@@ -60,9 +63,6 @@ namespace CoolBooks.Controllers
                 ViewBag.ErrMessage = "There are error(s) in your input";
                 hasErrors = true;
             }
-
-
-
             if (hasErrors)
             {
                 return View();
@@ -77,10 +77,6 @@ namespace CoolBooks.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-
-
-
         }
 
         // GET: Users/Edit/5
@@ -105,14 +101,7 @@ namespace CoolBooks.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "UserId,FirstName,LastName,Gender,Birthdate,Picture,Phone,Address,ZipCode,City,Country,Email,Info,Created,IsDeleted")] Users users)
-        {
-
-
-
-            
-            
-
-
+        { 
             if (ModelState.IsValid)
             {
                 db.Entry(users).State = EntityState.Modified;
