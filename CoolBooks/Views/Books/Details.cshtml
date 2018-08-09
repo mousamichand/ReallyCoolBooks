@@ -40,7 +40,7 @@
 
         <hr />
         @using (Html.BeginForm())
-    {
+        {
         @Html.AntiForgeryToken()
         <table class="table table-striped" border="0">
             <tr rowspan="2">
@@ -102,19 +102,21 @@
 
                         <tr>
                             <td>@reviews.Text </td>
-                            @if(@Uid == @reviews.UserId)
-                           {
+                            @if (@Uid == @reviews.UserId)
+                        {
                             <td>
-                                @*<input type="submit" id="n1" name=@reviews.Id value="Delete" formaction=@Url.Action("Delete","Reviews") formmethod="post" class="btn btn-primary" /><img src="" alt="Delete" /></td>*@
-                                <input type="hidden" name="n1" value=@reviews.Id formaction=@Url.Action("Delete","Reviews") formmethod="post" class="btn btn-primary"/>
-                                <input type="submit" value="Delete" formaction=@Url.Action("Delete","Reviews") formmethod="post" class="btn btn-primary"/>
-                                </td>
-                                }
-</tr>
+                                @Html.ActionLink("Delete", "Delete", "Reviews", new { id = @reviews.Id, BookId = @bk.Id }, new { @class = "btn btn-primary" })
+                                @*<input type="submit" id="n1" name=@reviews.Id value="Delete" formaction=@Url.Action("Delete","Reviews") formmethod="post" class="btn btn-primary" /><img src="" alt="Delete" /></td>
+                                <input type="hidden" name="n1" value=@reviews.Id />
+                                <input type="submit" value="Delete" formaction=@Url.Action("Delete","Reviews") formmethod="post" class="btn btn-primary" />
+                                    *@
+                            </td>
+                    }
+                        </tr>
 
 
                 }
-                        @if(Session["UserInfo"] != null)
+                        @if (Session["UserInfo"] != null)
                     {
 
                         <tr><td colspan="2"><b>Review Title</b> </td></tr>
@@ -161,10 +163,10 @@
             <label class="star-5" for="star-5">5</label>
             <span></span>
         </div>
-}
+        }
 
 
-}
+        }
     </div>
 
 <p>
