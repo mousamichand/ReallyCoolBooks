@@ -29,25 +29,26 @@ namespace CoolBooks.Controllers
             else return 1;
         }
 
-        public static bool IsAdmin(HttpSessionStateBase session)
-        {
-            // if (((AspNetUsers)(Session["UserInfo"]).Id))
+        //public static bool IsAdmin(HttpSessionStateBase session)
+        //{
+        //    // if (((AspNetUsers)(Session["UserInfo"]).Id))
 
-            var sessionId = ((AspNetUsers)session["UserInfo"]).AspNetRoles.Contains(db.AspNetRoles.Find("1"));
+        //    var sessionId = ((AspNetUsers)session["UserInfo"]).AspNetRoles.Contains(db.AspNetRoles.Find("1"));
 
-            if (session["UserInfo"] != null)
-            {
-                if ((AspNetUsers)session["UserInfo"]).AspNetRoles.Contains(db.AspNetRoles.Find("1"))
-                {
-                    return true;
-                }
+        //    if (session["UserInfo"] != null)
+        //    {
+        //        if( ((AspNetUsers)session["UserInfo"]).AspNetRoles.Contains(db.AspNetRoles.Find("1")))
+        //        {
+        //            return true;
+        //        }
 
-                else
-                {
-                    return false;
-                }
-            }
-        }
+        //        else
+        //        {
+        //            return false;
+        //        }
+        //    }
+        //    return false;
+        //}
 
 
         public ActionResult Index()
