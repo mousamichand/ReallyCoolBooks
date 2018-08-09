@@ -3,60 +3,54 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2> </h2>
-<h2> </h2>
 
 
+    <h2></h2>
 
-<ul class="tab-content">
-    <li><a data-toggle="tab" href="#firstTab">View All</a></li>
-</ul>
-<div class="tab-content">
-    <div id="firstTab" class="tab-pane fade in active">@Html.Action("ViewAll")</div>
-</div>
+    <div class="nav nav-tabs">
+        <a data-toggle="tab" href="#firstTab">View All</a>
 
-<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
-@section scripts{
-    @Scripts.Render("~/bundles/jqueryval")
+    </div>
+    <div class="tab-content">
+        <div id="firstTab" class="tab-pane fade in active">@Html.Action("ViewAll")</div>
 
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    </div>
 
-    <script>
-        function activatejQueryTable() {
-            $("#booksTable").DataTable();
-        }
+<body>
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+    @section scripts{
+        @Scripts.Render("~/bundles/jqueryval")
 
-        $(function () {
-            activatejQueryTable();
-        });
-
-    </script>
-}
-
-@*<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
-<script type="text/javascript" src="https://raw.githubusercontent.com/viralpatel/jquery.shorten/master/src/jquery.shorten.js"></script>
-<script>
-    $(function () {
-
-        //$(".text").shorten({
-        //    "showChars": 200
-        //});
-
-        //// OR
-        //$(".text").shorten({
-        //    "showChars": 150,
-        //    "moreText": "See More",
-        //});
-
-        //// OR
-        $(".Description").shorten({
-            "showChars": 50,
-            "moreText": "See More",
-            "lessText": "Less",
-        });
-
-    });
-</script>*@
+        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
 
+        <script>
+            function activatejQueryTable() {
+                $("#booksTable").DataTable();
+            }
 
+            $(function () {
+                activatejQueryTable();
+            });
+
+        </script>
+    }
+</body>
+    @*<head>
+        <title>Add Read More Link (from DevCurry.com)</title>
+        <script type="text/javascript"
+                src="http://ajax.microsoft.com/ajax/jquery/jquery-1.4.4.min.js">
+        </script>
+        <script type="text/javascript"
+                src="http://plugins.learningjquery.com/expander/jquery.expander.js">
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $('th.table table-striped table-condensed').expander({
+                    slicePoint: 200,
+                    expandText: 'Read More',
+                    userCollapseText: 'Hide Text'
+                });
+            });
+        </script>
+    </head>*@
