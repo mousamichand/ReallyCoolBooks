@@ -50,7 +50,7 @@ namespace CoolBooks.Controllers
         {
 
 
-            authors.LastName = "Last";
+            authors.LastName = "poop";
             authors.Created = DateTime.Now;
             authors.IsDeleted = false;
 
@@ -86,8 +86,8 @@ namespace CoolBooks.Controllers
         public ActionResult Edit([Bind(Include = "Id,FirstName,Description,Created,IsDeleted")] Authors authors)
         {
             if (ModelState.IsValid)
-            {   authors.Created=DateTime.Now;
-                authors.LastName = "Last";
+            {
+                authors.LastName = "poop";
                 db.Entry(authors).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
