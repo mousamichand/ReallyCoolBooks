@@ -19,37 +19,18 @@ namespace CoolBooks.Controllers
     {
         private CoolBooksEntities db = new CoolBooksEntities();
 
-        public int IsRegistered()
+        public static bool IsLoggedIn(HttpSessionStateBase session)
         {
-            if (Session["UserInfo"] == null)
-            {
-                return 0;
-            }
-
-            else return 1;
+            return (session["UserInfo"] != null);
         }
 
-        //public static bool IsAdmin(HttpSessionStateBase session)
-        //{
-        //    // if (((AspNetUsers)(Session["UserInfo"]).Id))
-
-        //    var sessionId = ((AspNetUsers)session["UserInfo"]).AspNetRoles.Contains(db.AspNetRoles.Find("1"));
-
-        //    if (session["UserInfo"] != null)
-        //    {
-        //        if( ((AspNetUsers)session["UserInfo"]).AspNetRoles.Contains(db.AspNetRoles.Find("1")))
-        //        {
-        //            return true;
-        //        }
-
-        //        else
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //    return false;
-        //}
-
+        public static bool IsAdmin(HttpSessionStateBase session)
+        {
+            if (session["UserInfo"] == null)
+                return false;
+            else 
+                return (bool)session["IsAdmin"]; 
+        }
 
         public ActionResult Index()
         {

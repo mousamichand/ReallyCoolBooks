@@ -40,7 +40,7 @@ namespace CoolBooks.Controllers
         // GET: Users/Profile
         public ActionResult Profile()
         {
-            ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email");
+            //ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email");
 
             Users users = db.Users.Find(Session["UserId"]);
 
@@ -52,27 +52,23 @@ namespace CoolBooks.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Profile([Bind(Include = "UserId,FirstName,LastName,Gender,Birthdate,Picture,Phone,Address,ZipCode,City,Country,Email,Info")] Users users)
+        public ActionResult Profile([Bind(Include = "FirstName,LastName,Gender,Birthdate,Picture,Phone,Address,ZipCode,City,Country,Email,Info")] Users users)
         {
-            
-
             bool hasErrors = false;
-
+            /*
             if (!ModelState.IsValid)
             {
                 ViewBag.ErrMessage = "There are error(s) in your input";
                 hasErrors = true;
             }
+            */
             if (hasErrors)
             {
                 return View();
             }
             else
             {
-                users.Created = DateTime.Now;
-                users.IsDeleted = false;
-
-                users.Email = "hej";
+                users.UserId = (string)Session["UserId"];
                 db.Users.Add(users);
                 db.SaveChanges();
                 return RedirectToAction("Index");
