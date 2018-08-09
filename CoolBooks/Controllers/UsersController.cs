@@ -54,8 +54,6 @@ namespace CoolBooks.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Profile([Bind(Include = "FirstName,LastName,Gender,Birthdate,Picture,Phone,Address,ZipCode,City,Country,Email,Info")] Users users)
         {
-            
-            
             bool hasErrors = false;
             /*
             if (!ModelState.IsValid)
