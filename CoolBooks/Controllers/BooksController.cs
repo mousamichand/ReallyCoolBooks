@@ -110,7 +110,12 @@ namespace CoolBooks.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,UserId,AuthorId,GenreId,Title,AlternativeTitle,Part,Description,ISBN,PublishDate,ImagePath,Created,IsDeleted")] Books books)
         {
-            string s1 = Request.Form["n1"];
+
+            ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", books.UserId);
+            ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName", books.AuthorId);
+            ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", books.GenreId);
+
+            string s1 = Request.Form["n2"];
             
                 if (s1.Equals("Save"))
                 {
@@ -124,19 +129,18 @@ namespace CoolBooks.Controllers
                         rev.Rating = 0;
                     rev.Created = DateTime.Now;
                     rev.Title = Request.Form["RevTitle"];
-
+                     rev.IsDeleted = false;
                     db.Reviews.Add(rev);
                     db.SaveChanges();
                     return RedirectToAction("Details", new { id = rev.BookId });
 
                 }
-            
+
 
             if (ModelState.IsValid)
             {
-               // books.GenreId = 1;
+                // books.GenreId = 1;
                 string s = Request.Form["n1"];
-
 
                 if (s.Equals("autofill"))
                 {
@@ -186,59 +190,37 @@ namespace CoolBooks.Controllers
 
                 if (s.Equals("Create"))
                 {
-                    books.UserId = ((AspNetUsers)Session["UserInfo"]).Id;   
-                books.Created = DateTime.Now;
-                books.IsDeleted = false;
-                db.Books.Add(books);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                    books.UserId = ((AspNetUsers)Session["UserInfo"]).Id;
+                    books.Created = DateTime.Now;
+                    books.IsDeleted = false;
+                    db.Books.Add(books);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
-                //else if(s.Equals("Save"))
-                //{
-                //    Reviews rev = new Reviews();
-                //    rev.UserId = "mchand";
-                //    rev.BookId = 21;
-                //    rev.Text = Request.Form["Comments"];
-                //    rev.Rating = Byte.Parse(Request.Form["star"]);
-                //    //  string star2 = Request.Form["star-2"];
-                //    //string star3 = Request.Form["star-3"];
-                //    //string star4 = Request.Form["star-4"];
-                //    //string star5 = RequesForm["star-5"];
-                //    rev.Created = DateTime.Now;
-                //    rev.Title= Request.Form["RevTitle"];
-
-                //    db.Reviews.Add(rev);
-                //    db.SaveChanges();
-                //    return RedirectToAction("Details", new { id = rev.BookId });
-
-                //}
+                
                 else
                 {
-                   // Item  book = GoogleBooksAPI.SearchBook(books.ISBN);
+                    // Item  book = GoogleBooksAPI.SearchBook(books.ISBN);
 
-                   //ViewBag.booktitle = book.VolumeInfo.Title;
+                    //ViewBag.booktitle = book.VolumeInfo.Title;
 
                     ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", books.UserId);
                     ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName", books.AuthorId);
                     ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", books.GenreId);
 
 
-                    //        Books book = new Books();
-                    //        book.GenreId = 1 ;
-                    //        book.AuthorId = 1;
-                    //    book.Title = "crazy .net mvc";
-                    //return View(book);
-
 
 
                     return View();
                 }
-                
+
             }
 
             else
+            {
+               
                 return View(books);
-    
+            }
         }
 
         public int GetGenreByName(string name)
