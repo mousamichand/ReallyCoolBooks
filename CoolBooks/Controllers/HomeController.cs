@@ -99,6 +99,7 @@ namespace CoolBooks.Controllers
             } else {
                 Session["UserInfo"] = userInfo;
                 Session["UserName"] = userInfo.UserName;
+                Session["UserId"] = userInfo.Id;
                 return RedirectToAction("../Home");
             }
         }
