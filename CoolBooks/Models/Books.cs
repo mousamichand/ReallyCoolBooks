@@ -43,7 +43,7 @@ namespace CoolBooks.Models
         //[StringLength(40)]
         public string ISBN { get; set; }
         public Nullable<System.DateTime> PublishDate { get; set; }
-        [DataType(DataType.Upload)]
+        
         [DisplayName("Image")]
         public string ImagePath { get; set; }
         [NotMapped]

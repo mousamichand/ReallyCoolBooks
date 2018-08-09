@@ -188,7 +188,7 @@ namespace CoolBooks.Controllers
 
 
 
-                if (s.Equals("Create"))
+                if (s1.Equals("Create"))
                 {
                     books.UserId = ((AspNetUsers)Session["UserInfo"]).Id;
                     books.Created = DateTime.Now;
