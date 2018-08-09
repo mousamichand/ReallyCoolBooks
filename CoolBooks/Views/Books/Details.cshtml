@@ -106,9 +106,10 @@
                            {
                             <td>
                                 @*<input type="submit" id="n1" name=@reviews.Id value="Delete" formaction=@Url.Action("Delete","Reviews") formmethod="post" class="btn btn-primary" /><img src="" alt="Delete" /></td>*@
-                                <input type="hidden" name="n1" value=@reviews.Id formaction=@Url.Action("Delete","Reviews") formmethod="post" class="btn btn-primary"/>
-                                <input type="submit" value="Delete" formaction=@Url.Action("Delete","Reviews") formmethod="post" class="btn btn-primary"/>
-                                </td>
+                                @Html.ActionLink("Del", "Delete", "Reviews",new { id = @reviews.Id,BookId=bk.Id }, new { @class = "btn btn-primary" })
+                                <input type="hidden" name="n1" value=@reviews.Id formaction=@Url.Action("Delete","Reviews") formmethod="post" class="btn btn-primary" />
+                                <input type="submit" value="Delete" formaction=@Url.Action("Delete","Reviews") formmethod="post" class="btn btn-primary" />
+                            </td>
                                 }
 </tr>
 
