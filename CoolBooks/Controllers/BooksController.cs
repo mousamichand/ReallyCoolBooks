@@ -26,12 +26,19 @@ namespace CoolBooks.Controllers
         public ActionResult Index()
         {
             // var books = db.Books.Include(b => b.AspNetUsers).Include(b => b.Authors).Include(b => b.Genres);
-            string sessionId = ((AspNetUsers)Session["UserInfo"]).Id;
-            var books = 
+            if (Session["UserInfo"] != null)
+            {
+                string sessionId = ((AspNetUsers)Session["UserInfo"]).Id;
+                var books =
                 from c in db.Books
                 where (c.UserId == sessionId)
                 select c;
-            return View(books.ToList());
+                return View(books.ToList());
+            }
+
+            else
+                //return RedirectToAction("Home", "Noaccess");
+                return Redirect("/Home/Index");
         }
 
         // GET: Books/Details/5
@@ -69,15 +76,21 @@ namespace CoolBooks.Controllers
             
         }
 
-        // GET: Books/Create ****
+        // GET: Books/Create ********
         public ActionResult Create()
         {
-            ViewBag.UserId = Session["username"];
+            if (Session["UserInfo"] != null)
+            { 
+                ViewBag.UserId = Session["username"];
 
 
-            ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName");
-            ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name");
-            return View();
+                ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName");
+                ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name");
+                return View();
+            }
+
+            return Redirect("/Home/Index");
+
         }
         /*
             else // Else return to index page
@@ -269,16 +282,16 @@ namespace CoolBooks.Controllers
                 return HttpNotFound();
             }
           
-            //if ((string)Session["UserId"] == books.UserId)
-            //{
+            if ((string)Session["UserId"] == books.UserId)
+            {
                 ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", books.UserId);
                 ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName", books.AuthorId);
                 ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", books.GenreId);
                 return View(books);
-            //}
+            }
 
-            //else
-            //    return Redirect("Index");
+            else
+                return Redirect("Index");
         }
 
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
