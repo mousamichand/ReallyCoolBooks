@@ -147,23 +147,23 @@ namespace CoolBooks.Controllers
                     int counter = 0;
                     string line;
 
-                    // Read the file and display it line by line.  
-                  //  System.IO.StreamReader file =
-                    //    new System.IO.StreamReader(@"c:\isbnstuff3.txt");
-                    //while ((line = file.ReadLine()) != null)
-                    //{
+                //     Read the file and display it line by line.  
+                    System.IO.StreamReader file =
+                        new System.IO.StreamReader(@"c:\isbnstuff3.txt");
+                    while ((line = file.ReadLine()) != null)
+                    {
                         try
                         {
 
 
-                            Item item = GoogleBooksAPI.SearchBook(Request.Form["ISBN"]); ;
+                            Item item = GoogleBooksAPI.SearchBook(line); 
                             books.UserId = "04e9d61c-eb4d-4821-9f97-91c3bc31f45a";
                             books.AuthorId = GetAuthorByName(item.VolumeInfo.Authors[0]);
                             books.Created = DateTime.Now;
                             books.GenreId = GetGenreByName(item.VolumeInfo.Categories[0]);
                             books.IsDeleted = false;
                             books.Title = item.VolumeInfo.Title;
-                            books.ISBN = Request.Form["ISBN"];
+                            books.ISBN = line;
                             books.Description = item.VolumeInfo.Description;
                             books.ImagePath = item.VolumeInfo.ImageLinks.Thumbnail;
                             // books.PublishDate = item.VolumeInfo.PublishedDate;
@@ -178,9 +178,9 @@ namespace CoolBooks.Controllers
                             int a = 1;
                         }
                         counter++;
-                   // }
+                    }
 
-                    //file.Close();
+                    file.Close();
 
                 }
 

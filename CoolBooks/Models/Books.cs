@@ -34,7 +34,7 @@ namespace CoolBooks.Models
         [JsonProperty("title")]
         public string Title { get; set; }
         public string AlternativeTitle { get; set; }
-        [Range(1, 10)]
+       // [Range(1, 10)]
        
         public Nullable<short> Part { get; set; }
 
