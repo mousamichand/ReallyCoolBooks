@@ -225,84 +225,6 @@ namespace CoolBooks.Controllers
     
         }
 
-        /*
-        // POST: Books/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult autofill([Bind(Include = "Id,UserId,AuthorId,GenreId,Title,AlternativeTitle,Part,Description,ISBN,PublishDate,ImagePath,Created,IsDeleted")] Books books)
-        {
-            if (ModelState.IsValid)
-            {
-                string s = Request.Form["n2"];
-
-                if (s.Equals("autofill"))
-                {
-                    int counter = 0;
-                    string line;
-
-                    // Read the file and display it line by line.  
-                    System.IO.StreamReader file =
-                        new System.IO.StreamReader(@"c:\isbnstuff3.txt");
-                    while ((line = file.ReadLine()) != null)
-                    {
-                        try
-                        {
-
-
-                            Item item = GoogleBooksAPI.SearchBook(line); ;
-                            books.UserId = "772509fa-cfff-4a68-a573-a62d9c9a0bb6";
-                            books.AuthorId = GetAuthorByName(item.VolumeInfo.Authors[0]);
-                            books.Created = DateTime.Now;
-                            books.GenreId = GetGenreByName(item.VolumeInfo.Categories[0]);
-                            books.IsDeleted = false;
-                            books.Title = item.VolumeInfo.Title;
-                            books.ISBN = line;
-                            books.Description = item.VolumeInfo.Description;
-                            books.ImagePath = item.VolumeInfo.ImageLinks.Thumbnail;
-                            // books.PublishDate = item.VolumeInfo.PublishedDate;
-
-                            db.Books.Add(books);
-                            db.SaveChanges();
-                        }
-
-
-                        catch
-                        {
-                            int a = 1;
-                        }
-                        counter++;
-                    }
-
-                    file.Close();
-
-                }
-
-                return Index();
-
-
-            }
-            return Index();
-        }
-
-            */
-
-
-        //[HttpPost]
-        //public void autofill([Bind(Include = "ISBN")] Books books)
-        //{
-
-        //        GoogleBooksAPI.SearchBook(books.ISBN);
-        //        books.GenreId = 1;
-        //        books.Created = DateTime.Now;
-        //        books.IsDeleted = false;
-
-
-
-
-        //}
-
         public int GetGenreByName(string name)
         {
             List<Genres> genres = db.Genres.ToList<Genres>();
@@ -319,13 +241,6 @@ namespace CoolBooks.Controllers
 
         public int GetAuthorByName(string name)
         {
-         //   name = name.Trim();
-           // string[] names = name.Split();
-            //string lastName = names.Last<string>();
-           // string fstName = name;
-           // for(int i = 0; i < names.Length-1; ++i)
-            //    fstName += names[i] + " ";
-            //fstName = fstName.Trim();
             List<Authors> authors = db.Authors.ToList<Authors>();
             foreach (Authors author in authors)
                 if ((author.FirstName.ToLower() == name.ToLower()))
@@ -340,69 +255,6 @@ namespace CoolBooks.Controllers
             db.SaveChanges();
             return model.Id;
         }
-
-        /*
-    books.Created = DateTime.Now;
-    books.IsDeleted = false;
-    db.Books.Add(books);
-    db.SaveChanges();
-    return RedirectToAction("Index");
-    }
-    else
-    {
-       // Item  book = GoogleBooksAPI.SearchBook(books.ISBN);
-
-       //ViewBag.booktitle = book.VolumeInfo.Title;
-
-        ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email", books.UserId);
-        ViewBag.AuthorId = new SelectList(db.Authors, "Id", "FirstName", books.AuthorId);
-        ViewBag.GenreId = new SelectList(db.Genres, "Id", "Name", books.GenreId);
-
-
-    //        Books book = new Books();
-    //        book.GenreId = 1 ;
-    //        book.AuthorId = 1;
-    //    book.Title = "crazy .net mvc";
-    //return View(book);
-
-
-       Books objbook = new Books
-        {
-            Id = 1,
-            AuthorId=1,
-            UserId="mchand",
-            ISBN="1238",
-            Title = "Priti kumari",
-           Created = DateTime.Now
-
-        };
-
-        return View("create",objbook);
-    }
-
-}
-
-else
-    return View(books);
-
-    }
-    return Index();
-}
-    */
-
-        //[HttpPost]
-        //public void autofill([Bind(Include = "ISBN")] Books books)
-        //{
-
-        //        GoogleBooksAPI.SearchBook(books.ISBN);
-        //        books.GenreId = 1;
-        //        books.Created = DateTime.Now;
-        //        books.IsDeleted = false;
-
-
-
-
-        //}
 
         // GET: Books/Edit/5 ****
         public ActionResult Edit(int? id)
