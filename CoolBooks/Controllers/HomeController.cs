@@ -55,6 +55,11 @@ namespace CoolBooks.Controllers
             return View();
         }
 
+        public ActionResult Password()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogIn([Bind(Include = "UserName")] AspNetUsers aspNetUsers)

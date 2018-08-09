@@ -265,6 +265,7 @@
     <Content Include="BookImages\3.jpg" />
     <Content Include="BookImages\default.jpg" />
     <Content Include="Content\style.css" />
+    <Content Include="Images\demon.png" />
     <Content Include="Images\star-empty-lg.png" />
     <Content Include="Images\star-fill-lg.png" />
     <Content Include="Images\stars.png" />
@@ -366,6 +367,7 @@
     <Content Include="Views\Home\Admin.cshtml" />
     <Content Include="Views\Reviews\Delete.cshtml" />
     <Content Include="Views\Reviews\Index.cshtml" />
+    <Content Include="Views\Home\Password.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
