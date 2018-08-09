@@ -48,7 +48,7 @@
                     <li>@Html.ActionLink("Search", "Index", "Search")</li>
                     @if (@Session["UserInfo"] != null)
                     {
-                        <li style="margin-right:400px">@Html.ActionLink("Logged in as: " + @Session["UserName"], null)</li>
+                        <li>@Html.ActionLink("Logged in as: " + @Session["UserName"], null)</li>
                     }
                 </ul>
             </div>
