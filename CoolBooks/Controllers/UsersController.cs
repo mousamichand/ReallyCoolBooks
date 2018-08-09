@@ -41,7 +41,10 @@ namespace CoolBooks.Controllers
         public ActionResult Profile()
         {
             ViewBag.UserId = new SelectList(db.AspNetUsers, "Id", "Email");
-            return View();
+
+            Users users = db.Users.Find(Session["UserId"]);
+
+            return View(users);
         }
 
         // POST: Users/Profile
@@ -51,6 +54,8 @@ namespace CoolBooks.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Profile([Bind(Include = "UserId,FirstName,LastName,Gender,Birthdate,Picture,Phone,Address,ZipCode,City,Country,Email,Info")] Users users)
         {
+            
+
             bool hasErrors = false;
 
             if (!ModelState.IsValid)
