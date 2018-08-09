@@ -54,9 +54,7 @@ namespace CoolBooks.Controllers
         public ActionResult Profile([Bind(Include = "UserId,FirstName,LastName,Gender,Birthdate,Picture,Phone,Address,ZipCode,City,Country,Email,Info")] Users users)
         {
             bool hasErrors = false;
-            // ViewBag.UserId = new SelectList(db.AspNetUsers, "Email", users.UserId);
-           // ViewBag.UserId = new SelectList(db.AspNetUsers, "Email", "772509fa-cfff-4a68-a573-a62d9c9a0bb6");
-           // ViewBag.Email = "Adam@hotmail.com";
+
             if (!ModelState.IsValid)
             {
                 ViewBag.ErrMessage = "There are error(s) in your input";

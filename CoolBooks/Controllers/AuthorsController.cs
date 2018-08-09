@@ -83,16 +83,18 @@ namespace CoolBooks.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,Description,Created,IsDeleted")] Authors authors)
+        public ActionResult Edit([Bind(Include = "FirstName,Description,id")] Authors authors)
         {
-            if (ModelState.IsValid)
-            {
-                authors.LastName = "poop";
-                db.Entry(authors).State = EntityState.Modified;
+            authors.LastName = "poop";
+            authors.Created = DateTime.Now;
+
+            //authors.Id = authors.Id;
+
+            db.Entry(authors).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
-            return View(authors);
+            
+            
         }
 
         // GET: Authors/Delete/5
