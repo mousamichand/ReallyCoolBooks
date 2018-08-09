@@ -51,7 +51,7 @@ namespace CoolBooks.Controllers
                     PublishDate = x.PublishDate,
                     UserId = x.UserId
                 }).ToList();
-
+              
                 return searchVmList;
             }
 
@@ -64,5 +64,7 @@ namespace CoolBooks.Controllers
             Books books = dc.Books.Single(boo => boo.Id == id);
             return View(books);
         }
+       
     }
+
 }

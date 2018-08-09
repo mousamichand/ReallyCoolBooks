@@ -129,6 +129,7 @@ namespace CoolBooks.Controllers
                 db.SaveChanges();
                 Session["UserInfo"] = aspNetUsers;
                 Session["UserName"] = aspNetUsers.UserName;
+                Session["UserId"] = aspNetUsers.Id;
 
                 return RedirectToAction("../Users/Profile");
             }

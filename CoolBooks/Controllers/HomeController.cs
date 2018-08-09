@@ -76,6 +76,11 @@ namespace CoolBooks.Controllers
             return View();
         }
 
+        public ActionResult Password()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogIn([Bind(Include = "UserName")] AspNetUsers aspNetUsers)
@@ -120,6 +125,7 @@ namespace CoolBooks.Controllers
             } else {
                 Session["UserInfo"] = userInfo;
                 Session["UserName"] = userInfo.UserName;
+                Session["UserId"] = userInfo.Id;
                 return RedirectToAction("../Home");
             }
         }

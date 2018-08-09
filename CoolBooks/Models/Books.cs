@@ -22,6 +22,7 @@ namespace CoolBooks.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Books()
         {
+            Part = 1;
             ImagePath = "~/BookImages/default.jpg";
             this.Reviews = new HashSet<Reviews>();
         }
@@ -36,8 +37,7 @@ namespace CoolBooks.Models
         [Range(1, 10)]
        
         public Nullable<short> Part { get; set; }
-        [Required(ErrorMessage = "Description  is Required")]
-        [StringLength(4000)]
+
 
         public string Description { get; set; }
         //[StringLength(40)]
