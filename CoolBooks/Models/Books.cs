@@ -22,6 +22,7 @@ namespace CoolBooks.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Books()
         {
+            Part = 1;
             ImagePath = "~/BookImages/default.jpg";
             this.Reviews = new HashSet<Reviews>();
         }
