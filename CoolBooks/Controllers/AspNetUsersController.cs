@@ -61,17 +61,6 @@ namespace CoolBooks.Controllers
             string password = Request.Form["Password"];
             string password2 = Request.Form["Password2"];
 
-            // TODO Validate email?
-            // java script for easy checks?
-            // email unique?
-            // salt? as securitystamp
-            // no dropdowns
-            // update access failed count? in login?
-            // model isvalid?          
-            // login in using either username or email?
-            // phonenumber etc.
-            // fix isbn problem
-
             if (!ModelState.IsValid)
             {
                 ViewBag.ErrMessage = "There are error(s) in your input";
@@ -107,15 +96,15 @@ namespace CoolBooks.Controllers
             }
             if (!ModelState.IsValid)
             {
-                ViewBag.ErrMessage = ViewBag.ErrorMessage;
-                //ViewBag.ErrMessage = "There are error(s) in your input";
+                ViewBag.ErrMessage = "There are error(s) in your input";
                 hasErrors = true;
             }
 
             if (hasErrors)
             {
                 return View();
-            } else
+            } 
+            else
             {
                 aspNetUsers.Id = Guid.NewGuid().ToString();
                 aspNetUsers.EmailConfirmed = true;
@@ -134,7 +123,7 @@ namespace CoolBooks.Controllers
                 users.UserId = aspNetUsers.Id;
                 users.FirstName = "";
                 users.LastName = "";
-                users.Email = "";
+                users.Email = aspNetUsers.Email;
                 users.Created = DateTime.Now;
                 users.IsDeleted = false;
                 db.Users.Add(users);
