@@ -130,6 +130,7 @@ namespace CoolBooks.Controllers
                 Session["UserInfo"] = aspNetUsers;
                 Session["UserName"] = aspNetUsers.UserName;
                 Session["UserId"] = aspNetUsers.Id;
+                Session["IsAdmin"] = false;
 
                 return RedirectToAction("../Users/Profile");
             }

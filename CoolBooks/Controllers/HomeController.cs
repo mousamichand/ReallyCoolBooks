@@ -28,8 +28,8 @@ namespace CoolBooks.Controllers
         {
             if (session["UserInfo"] == null)
                 return false;
-            else 
-                return (bool)session["IsAdmin"]; 
+            else
+                return (bool)session["IsAdmin"];
         }
 
         public ActionResult Index()
@@ -52,13 +52,13 @@ namespace CoolBooks.Controllers
             return View(books.ToList());
         }
 
-        // GET: AspNetUsers/LogIn
-        public ActionResult LogIn()
+        public ActionResult Password()
         {
             return View();
         }
 
-        public ActionResult Password()
+        // GET: AspNetUsers/LogIn
+        public ActionResult LogIn()
         {
             return View();
         }
@@ -67,6 +67,7 @@ namespace CoolBooks.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogIn([Bind(Include = "UserName")] AspNetUsers aspNetUsers)
         {
+            bool isAdmin = false;
             bool hasErrors = false;
             string userName = Request.Form["UserName"]; // TODO: Seee above and in cshtml
             string password = Request.Form["Password"];
@@ -90,6 +91,7 @@ namespace CoolBooks.Controllers
                     ViewBag.ErrMessage = "Password is incorrect.";
                     hasErrors = true;
                 }
+                isAdmin = userInfo.AspNetRoles.Contains(db.AspNetRoles.Find("1"));
             }
             if (password.Trim() == "")
             {
@@ -108,6 +110,7 @@ namespace CoolBooks.Controllers
                 Session["UserInfo"] = userInfo;
                 Session["UserName"] = userInfo.UserName;
                 Session["UserId"] = userInfo.Id;
+                Session["IsAdmin"] = isAdmin;
                 return RedirectToAction("../Home");
             }
         }
