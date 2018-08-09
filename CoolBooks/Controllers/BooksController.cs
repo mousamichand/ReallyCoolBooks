@@ -98,23 +98,26 @@ namespace CoolBooks.Controllers
         public ActionResult Create([Bind(Include = "Id,UserId,AuthorId,GenreId,Title,AlternativeTitle,Part,Description,ISBN,PublishDate,ImagePath,Created,IsDeleted")] Books books)
         {
             string s1 = Request.Form["n1"];
-            if (s1.Equals("Save"))
-            {
-                Reviews rev = new Reviews();
-                rev.UserId = ((AspNetUsers)Session["UserInfo"]).Id;
-                rev.BookId = Int32.Parse(Request.Form["TxtBookId"]);
-                rev.Text = Request.Form["Comments"];
-                rev.Rating = Byte.Parse(Request.Form["star"]);
             
-                rev.Created = DateTime.Now;
-                rev.Title = Request.Form["RevTitle"];
+                if (s1.Equals("Save"))
+                {
+                    Reviews rev = new Reviews();
+                    rev.UserId = ((AspNetUsers)Session["UserInfo"]).Id;
+                    rev.BookId = Int32.Parse(Request.Form["TxtBookId"]);
+                    rev.Text = Request.Form["Comments"];
+                    if (Request.Form["star"] != null)
+                        rev.Rating = Byte.Parse(Request.Form["star"]);
+                    else
+                        rev.Rating = 0;
+                    rev.Created = DateTime.Now;
+                    rev.Title = Request.Form["RevTitle"];
 
-                db.Reviews.Add(rev);
-                db.SaveChanges();
-                return RedirectToAction("Details", new { id = rev.BookId });
+                    db.Reviews.Add(rev);
+                    db.SaveChanges();
+                    return RedirectToAction("Details", new { id = rev.BookId });
 
-            }
-
+                }
+            
 
             if (ModelState.IsValid)
             {

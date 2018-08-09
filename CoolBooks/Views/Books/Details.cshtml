@@ -96,7 +96,7 @@
                                 @for (int i = 1; i <= reviews.Rating; i++)
                             {
                                 <img src="~/Images/star-fill-lg.png" height="30" />
-                        }
+                             }
                             </td>
                         </tr>
 
@@ -104,7 +104,7 @@
                             <td>@reviews.Text </td>
                             @if(@Uid == @reviews.UserId)
                            {
-                        <td> <input type="submit" name="n1" value=@reviews.Id formaction=@Url.Action("Delete","Reviews") formmethod="post" class="btn btn-primary" /><img src="" alt="Delete" /></td>
+                        <td> <input type="submit" name="n1" id=@reviews.Id value=@reviews.Id formaction=@Url.Action("Delete","Reviews") formmethod="post" class="btn btn-primary" /></td>
                            }
                         </tr>
 
