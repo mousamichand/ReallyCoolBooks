@@ -5,7 +5,7 @@
     Books bk = ViewData["Books"] as Books;
 
     IEnumerable<Reviews> rev = ViewData["Reviews"] as IEnumerable<Reviews>;
-    var Uid = ((AspNetUsers)Session["UserInfo"]).Id;
+    var Uid = (string)Session["UserId"];
 }
 
 
